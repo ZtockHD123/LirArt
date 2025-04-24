@@ -1,13 +1,68 @@
-<ion-header [translucent]="true">
+<ion-header class="mobile-header ion-hide-md-up" [translucent]="false">
   <ion-toolbar>
-    <ion-title>inicio</ion-title>
+    <div class="toolbar-content">
+      <h2 class="header-logo">LirArt</h2>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-grid class="main-grid">
+    <ion-row class="main-row">
+
+      <ion-col size="12" size-md="6" class="form-section-col">
+        <div class="form-content-wrapper">
+
+          <picture>
+            <source srcset="assets/img/LogoLirartClaro.png" media="(prefers-color-scheme: dark)" alt="LirArt Logo Oscuro" class="desktop-logo-img ion-hide-sm-down">
+
+            <img src="assets/img/LogoLirartOscuro.png" alt="LirArt Logo" class="desktop-logo-img ion-hide-sm-down">
+          </picture>
+
+          <h3 class="form-title">Inicia Sesión</h3>
+
+          <p class="instruction-text">Ingresa los datos para acceder a tu cuenta</p>
+
+          <ion-list lines="none">
+
+            <ion-label class="input-label">Correo Electrónico</ion-label>
+
+            <ion-item class="input-item">
+              <ion-input type="email" placeholder="Text" required></ion-input>
+            </ion-item>
+
+            <div class="password-label-container">
+               <ion-label class="password-label">Contraseña</ion-label>
+               <ion-text color="primary" class="forgot-password-link" (click)="forgotPassword()">¿Olvidaste tu contraseña?</ion-text>
+            </div>
+
+            <ion-item class="input-item">
+               <ion-input type="password" placeholder="Text" required></ion-input>
+            </ion-item>
+
+            <ion-item class="checkbox-item">
+              <ion-checkbox slot="start"></ion-checkbox>
+              <ion-label>Recordar Cuenta</ion-label>
+            </ion-item>
+
+          </ion-list>
+
+          <ion-button expand="block" class="button" (click)="login()">Acceder</ion-button>
+
+          <div class="register-link-container">
+            ¿No tienes cuenta?
+            <ion-text color="primary" (click)="register()" class="register-link">
+              Regístrate!
+            </ion-text>
+          </div>
+
+        </div>
+      </ion-col>
+
+      <ion-col size-md="6" class="image-section-col ion-hide-sm-down">
+        <img src="assets/img/hoshino.jpg" alt="Imagen Lateral Venti" class="side-image">
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
 </ion-content>

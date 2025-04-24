@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
+  standalone: false
 })
 export class RegistroPage implements OnInit {
 

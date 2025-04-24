@@ -4,12 +4,24 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
+  standalone: false,
 })
-export class InicioPage implements OnInit {
 
-  constructor() { }
+export class InicioPage implements OnInit {
 
   ngOnInit() {
   }
 
+  login() {
+    console.log('Botón Acceder presionado');
+
+  }
+
+  forgotPassword() {
+    console.log('Enlace Olvidé Contraseña presionado');
+  }
+
+  register() {
+    console.log('Enlace Registrarse presionado - Navegando a /tabs/tab2');
+  }
 }
