@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>menu</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+
+      <ion-col size="12" size-md="3" class="ion-hide-sm-down side-nav-col">
+        <app-side-nav></app-side-nav>
+      </ion-col>
+
+      <ion-col size="12" size-md="6" class="feed-col">
+        <app-post-card *ngFor="let post of posts" [postData]="post"></app-post-card>
+        <app-post-card [postData]="samplePost1"></app-post-card>
+        <app-post-card [postData]="samplePost2"></app-post-card>
+
+      </ion-col>
+
+      <ion-col size="12" size-md="3" class="ion-hide-sm-down side-content-col">
+        <app-suggested-users [suggestedUsers]="suggestedUsersData"></app-suggested-users>
+
+        <app-trending-hashtags [hashtags]="trendingHashtagsData"></app-trending-hashtags>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  </ion-content>

@@ -1,3 +1,29 @@
-<p>
-  header works!
-</p>
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
+
+    <ion-buttons slot="start" class="logo-container ion-hide-sm-down">
+       <ion-title class="header-logo-text">LirArt</ion-title>
+    </ion-buttons>
+
+    <div class="center-content">
+      <ion-button fill="clear" class="home-button" (click)="goToHome()">
+        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+      </ion-button>
+
+      <ion-searchbar placeholder="Buscar..." class="header-searchbar" (ionInput)="onSearchChange($event)"></ion-searchbar>
+    </div>
+
+    <ion-buttons slot="end" class="end-buttons">
+      <ion-button fill="clear" (click)="goToCart()">
+        <ion-icon slot="icon-only" name="cart-outline" color="dark"></ion-icon>
+        </ion-button>
+      <ion-button class="profile-button" (click)="goToProfile()">
+        <ion-avatar>
+          <img [src]="userProfileImageUrl || 'assets/img/raydraw1.png'" alt="User Profile">
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+  <div class="header-background-image"></div>
+</ion-header>
