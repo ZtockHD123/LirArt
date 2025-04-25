@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
-  standalone: false,
+  standalone: false, // Asumiendo que InicioPage tampoco es standalone
 })
-
 export class InicioPage implements OnInit {
+
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit() {
   }
 
   login() {
     console.log('Botón Acceder presionado');
-
+    this.router.navigateByUrl('/menu');
   }
 
   forgotPassword() {
@@ -22,6 +26,7 @@ export class InicioPage implements OnInit {
   }
 
   register() {
-    console.log('Enlace Registrarse presionado - Navegando a /tabs/tab2');
+    console.log('Enlace Registrarse presionado - Navegando a /registro');
+    this.router.navigateByUrl('/registro');
   }
 }

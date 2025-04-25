@@ -1,13 +1,110 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-grid class="main-grid">
+    <ion-row class="main-row">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <ion-col size-md="5" class="image-section-col ion-hide-sm-down">
+        <img src="assets/img/raydraw1.png" alt="Imagen Decorativa Registro" class="side-image">
+        </ion-col>
+
+      <ion-col size="12" size-md="7" class="form-section-col">
+        <div class="form-content-wrapper">
+
+          <picture>
+            <source srcset="assets/img/LogoLirartClaro.png" media="(prefers-color-scheme: dark)" alt="LirArt Logo Oscuro" class="desktop-logo-img ion-hide-sm-down">
+
+            <img src="assets/img/LogoLirartOscuro.png" alt="LirArt Logo" class="desktop-logo-img ion-hide-sm-down">
+          </picture>
+
+          <h3 class="form-title">Únete ahora!</h3>
+
+          <p class="instruction-text">Ingresa tus datos para crear la cuenta</p>
+
+            <ion-list lines="none">
+
+              <ion-row>
+                <ion-col size="12" size-sm="6">
+                  <ion-label class="input-label">Nombre</ion-label>
+                  <ion-item class="input-item">
+                    <ion-input type="text" formControlName="nombre" required></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-sm="6">
+                  <ion-label class="input-label">Apellido</ion-label>
+                  <ion-item class="input-item">
+                    <ion-input type="text" formControlName="apellido" required></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+
+              <ion-row>
+                <ion-col size="12" size-sm="6">
+                  <ion-label class="input-label">Nombre de Usuario</ion-label>
+                  <ion-item class="input-item">
+                    <ion-input type="text" formControlName="nombreUsuario" required></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-sm="6">
+                  <ion-label class="input-label">Rut</ion-label>
+                  <ion-item class="input-item">
+                    <ion-input type="text" formControlName="rut" placeholder="5.126.663-3" required></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-label class="input-label">Correo Electrónico</ion-label>
+              <ion-item class="input-item">
+                <ion-input type="email" formControlName="correo" required></ion-input>
+              </ion-item>
+
+              <ion-row>
+                <ion-col size="12" size-sm="6">
+                   <ion-label class="input-label">Región</ion-label>
+                   <ion-item class="input-item">
+                     <ion-select placeholder="Selecciona" formControlName="region" interface="popover">
+                       <ion-select-option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</ion-select-option>
+                     </ion-select>
+                   </ion-item>
+                </ion-col>
+                 <ion-col size="12" size-sm="6">
+                   <ion-label class="input-label">Comuna</ion-label>
+                   <ion-item class="input-item">
+                      <ion-select placeholder="Selecciona" formControlName="comuna" interface="popover">
+                         <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</ion-select-option>
+                      </ion-select>
+                   </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-label class="input-label">Contraseña</ion-label>
+              <ion-item class="input-item">
+                <ion-input type="password" formControlName="contrasena" required></ion-input>
+              </ion-item>
+
+              <ion-label class="input-label">Confirmar Contraseña</ion-label>
+              <ion-item class="input-item">
+                <ion-input type="password" formControlName="confirmarContrasena" required></ion-input>
+                </ion-item>
+
+              <ion-item class="checkbox-item">
+                <ion-checkbox slot="start" formControlName="aceptaTerminos"></ion-checkbox>
+                <ion-label>He leído y acepto los <ion-text color="primary" (click)="verTerminos()">Términos y Condiciones</ion-text></ion-label>
+              </ion-item>
+
+            </ion-list>
+          <ion-button expand="block" class="button" (click)="crearCuenta()">
+            Crear Cuenta
+          </ion-button>
+
+          <div class="login-link-container">
+            ¿Ya tienes una cuenta creada?
+            <ion-text color="primary" (click)="goToLogin()" class="login-link">
+              Inicia Sesión!
+            </ion-text>
+          </div>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
