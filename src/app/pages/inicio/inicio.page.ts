@@ -18,7 +18,7 @@ export class InicioPage implements OnInit {
 
   login() {
     console.log('Botón Acceder presionado');
-    this.router.navigateByUrl('/carrito');
+    this.router.navigateByUrl('/menu');
   }
 
   forgotPassword() {

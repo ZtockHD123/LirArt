@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // <--- Asegúrate que esté impor
 import { IonicModule } from '@ionic/angular';
 import { CarritoPageRoutingModule } from './carrito-routing.module';
 import { CarritoPage } from './carrito.page';
+import { SharedModule } from '../../shared.module';
 // Si tienes un SharedComponentsModule que exporta HeaderComponent, impórtalo aquí
 // import { SharedComponentsModule } from '../../components/shared-components.module';
 
@@ -13,6 +14,7 @@ import { CarritoPage } from './carrito.page';
     FormsModule, // <--- Necesario para [(ngModel)]
     IonicModule,
     CarritoPageRoutingModule,
+    SharedModule
     // SharedComponentsModule // <--- Si usas un módulo compartido para el header
   ],
   // Si NO usas un módulo compartido y HeaderComponent no es standalone, decláralo aquí.
