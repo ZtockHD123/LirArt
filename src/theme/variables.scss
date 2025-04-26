@@ -1,2 +1,24 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+// Ruta: src/theme/variables.scss
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+// 2. Asegúrate de que la definición de la variable esté DENTRO de :root
+:root {
+
+  /* Coloca aquí otras variables globales que puedas tener, como colores */
+  /* Ejemplo: --ion-color-primary: #3880ff; */
+
+  /** Fuente Global **/
+  --ion-font-family: 'Poppins', sans-serif; // <-- ¡Así sí! Dentro de :root
+
+}
+
+/* Puedes tener otros bloques como :root[mode="ios"] o :root[mode="md"] debajo si necesitas ajustes específicos por plataforma */
+
+/* Ejemplo:
+:root[mode="ios"] {
+  // Variables específicas para iOS si las necesitas
+}
+*/
