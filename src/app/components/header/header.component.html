@@ -2,12 +2,13 @@
   <ion-toolbar class="custom-toolbar">
 
     <ion-buttons slot="start" class="logo-container ion-hide-sm-down">
-       <ion-title class="header-logo-text">LirArt</ion-title>
+      <a href="/"> <img src="assets/img/LogoLirartOscuro.png" alt="Logo LirArt" class="header-logo-img">
+      </a>
     </ion-buttons>
 
     <div class="center-content">
       <ion-button fill="clear" class="home-button" (click)="goToHome()">
-        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="home" color="light"></ion-icon>
       </ion-button>
 
       <ion-searchbar placeholder="Buscar..." class="header-searchbar" (ionInput)="onSearchChange($event)"></ion-searchbar>
@@ -15,11 +16,11 @@
 
     <ion-buttons slot="end" class="end-buttons">
       <ion-button fill="clear" (click)="goToCart()">
-        <ion-icon slot="icon-only" name="cart-outline" color="dark"></ion-icon>
+        <ion-icon slot="icon-only" name="cart-outline" color="light"></ion-icon>
         </ion-button>
       <ion-button class="profile-button" (click)="goToProfile()">
         <ion-avatar>
-          <img [src]="userProfileImageUrl || 'assets/img/raydraw1.png'" alt="User Profile">
+          <img [src]="userProfileImageUrl || 'assets/img/pfp3.jpg'" alt="User Profile">
         </ion-avatar>
       </ion-button>
     </ion-buttons>

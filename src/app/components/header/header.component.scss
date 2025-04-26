@@ -19,13 +19,6 @@
 // --- Logo ---
 .logo-container {
   // Ajusta el tamaño y margen del logo si usas imagen o texto
-  .header-logo-text {
-    color: #2E3440; // Color oscuro para el texto del logo
-    font-family: 'Poppins', cursive; // Asegúrate de tener esta fuente importada
-    font-size: 1.8em;
-    font-weight: 600;
-    padding-left: 10px; // Espacio izquierdo para el logo
-  }
   .header-logo-img {
     height: 40px; // Ajusta el tamaño de tu logo
     margin-left: 10px;
@@ -55,9 +48,11 @@
   --border-radius: 20px; // Bordes redondeados
   --box-shadow: none; // Sin sombra
   --min-height: 38px; // Altura de la barra
-  --icon-color: var(--ion-color-medium-shade); // Color del icono de búsqueda
-  --placeholder-color: var(--ion-color-medium-shade);
-  --clear-button-color: var(--ion-color-medium-shade);
+
+  --color: #707070; //
+  --icon-color: #707070; // Color del icono de búsqueda
+  --placeholder-color: var(--ion-color-light-shade);
+  --clear-button-color:  #707070;
   width: 100%; // Ocupa el espacio disponible en el contenedor central
   max-width: 400px; // Limita el ancho máximo de la barra
   height: 38px; // Asegura la altura

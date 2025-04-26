@@ -15,38 +15,60 @@ export class MenuPage implements OnInit {
   // Ejemplo para PostCardComponent
   samplePost1 = {
     user: {
-      username: '@okayraynn',
-      avatar: 'assets/img/raydraw1.png' // Reemplaza con una imagen de avatar real o por defecto
+      username: '@pandaz667',
+      avatar: 'assets/img/pfp2.jpg'
     },
-    timestamp: 'Hoy, 1:04 am',
-    text: 'Ay subi el mismo dibujo ajsdjasdasd',
-    imageUrl: 'assets/img/hoshino.jpg' // Usa la imagen que tienes o una URL
-  };
+    timestamp: 'Hoy, Hace 30 minutos',
+    text: "Sketchbook 10/01/25",
+    imageUrl: 'assets/img/42.jpg' // Otra imagen de ejemplo
+ };
 
   samplePost2 = {
+    user: {
+      username: '@pandaz667',
+      avatar: 'assets/img/pfp2.jpg'
+    },
+    timestamp: 'Hoy, 3:34 pm',
+    text: "Dibujo del semestre pasado :p",
+    imageUrl: 'assets/img/12.jpg' // Otra imagen de ejemplo
+ };
+
+   samplePost3 = {
      user: {
        username: '@okayraynn',
-       avatar: 'assets/img/raydraw1.png'
+       avatar: 'assets/img/pfp6.jpg'
      },
-     timestamp: 'Ayer, 5:09 pm',
-     text: 'Skibidi sigma, soy sigma, sigma, sigma, soy sigma',
-     imageUrl: 'assets/img/raydraw1.png' // Otra imagen de ejemplo
+     timestamp: 'Hoy, 1:57 pm',
+     text: "Different explorations of types of background and styles that i never posted! last semester's work hehe",
+     imageUrl: 'assets/img/3.jpg' // Otra imagen de ejemplo
   };
 
+  samplePost4 = {
+    user: {
+      username: '@_ramitadequilo_',
+      avatar: 'assets/img/pfp7.jpg' // Reemplaza con una imagen de avatar real o por defecto
+    },
+    timestamp: 'Ayer, 5:09 pm',
+    text: 'Una Vizcacha que está chata.',
+    imageUrl: 'assets/img/23.JPG' // Usa la imagen que tienes o una URL
+  };
+
+
+
   // Lista de posts para el *ngFor (puedes añadir más posts aquí)
-   posts = [this.samplePost1, this.samplePost2];
+   posts = [this.samplePost1, this.samplePost2, this.samplePost3,  this.samplePost4];
 
   // Ejemplo para SuggestedUsersComponent
   suggestedUsersData = [
-    { username: '@panda667', avatar: 'assets/img/hoshino.jpg', name: 'Panda' },
-    { username: '@user2', avatar: 'assets/img/raydraw1.png', name: 'Estela' },
+    { username: '@remi_yai', avatar: 'assets/img/pfp5.jpg', name: 'レン' },
+    { username: '@baadbored', avatar: 'assets/img/pfp8.jpg', name: 'BAAD' },
   ];
 
   // Ejemplo para TrendingHashtagsComponent
   trendingHashtagsData = [
-    { tag: '#manga', count: '1 mill publicaciones', location: 'En Chile' },
-    { tag: '#sketch', count: '10 mil publicaciones', location: 'En Chile' },
-    { tag: '#arte', count: '5 mil publicaciones', location: 'En Chile' },
+    { tag: '#manga', count: '1 mill publicaciones', location: 'Tendencia en Chile' },
+    { tag: '#sketch', count: '10 mil publicaciones', location: 'Tendencias' },
+    { tag: '#gouache', count: '5 mil publicaciones', location: 'Tendencia en Chile' },
   ];
   // --- Fin Datos de Ejemplo ---
 
