@@ -12,7 +12,9 @@
 4. [Librerías en Angular](#liberías-usadas-con-angular)
 
 ## Resumen del Proyecto
+
 LirArt es una aplicación diseñada como una plataforma social y/o marketplace para artistas e ilustradores. Permite a los usuarios registrarse, iniciar sesión, explorar un feed de publicaciones, ver perfiles de artistas (ilustradores), gestionar un carrito de compras y ver su propio perfil de cliente.
+
 ---
 ## Requerimientos
 
