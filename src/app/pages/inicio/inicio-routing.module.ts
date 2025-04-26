@@ -5,7 +5,7 @@ import { InicioPage } from './inicio.page';
 
 const routes: Routes = [
   {
-    path: '',  // Cambiado de 'inicio' a '' porque esta ruta ya se definirá en el módulo principal
+    path: '',
     component: InicioPage
   }
 ];

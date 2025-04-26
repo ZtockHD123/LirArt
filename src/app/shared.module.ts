@@ -1,21 +1,20 @@
-// app/shared.module.ts
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular'; // Importa IonicModule
+import { IonicModule } from '@ionic/angular';
 
-import { HeaderComponent } from './components/header/header.component'; // Ajusta la ruta si es necesario
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent // Declara tu componente aquí
+    HeaderComponent
   ],
   imports: [
     CommonModule,
-    IonicModule // Importa IonicModule
+    IonicModule
   ],
   exports: [
-    HeaderComponent // Exporta tu componente para que otros módulos puedan usarlo
+    HeaderComponent
   ]
 })
 export class SharedModule { }

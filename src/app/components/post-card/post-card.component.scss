@@ -1,17 +1,17 @@
 ion-card {
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 15px; // Espacio entre posts
-  box-shadow: none; // Quita sombra si prefieres un look más plano
-  border: 1px solid var(--ion-color-medium-tint); // Borde sutil
-  border-radius: 8px; // Bordes redondeados
+  margin-bottom: 15px;
+  box-shadow: none;
+  border: 1px solid var(--ion-color-medium-tint);
+  border-radius: 8px;
 }
 
 .user-info {
   --inner-padding-bottom: 5px;
   --inner-padding-top: 5px;
   h2 {
-    font-weight: 600; // Nombre de usuario en negrita
+    font-weight: 600;
     font-size: 0.95em;
     cursor: pointer;
   }
@@ -25,17 +25,17 @@ ion-card {
   padding-top: 5px;
   padding-bottom: 10px;
    p {
-     margin-bottom: 10px; // Espacio entre texto e imagen si ambos existen
+     margin-bottom: 10px;
      font-size: 0.9em;
      line-height: 1.4;
    }
 }
 
 .post-image {
-  display: block; // Asegura que la imagen ocupe su línea
+  display: block;
   width: 100%;
-  max-height: 500px; // Limita la altura máxima de la imagen
-  object-fit: cover; // Escala la imagen para cubrir el área sin distorsionarla
-  border-radius: 4px; // Bordes redondeados leves para la imagen
-  margin-top: 10px; // Espacio si hay texto arriba
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-top: 10px;
 }

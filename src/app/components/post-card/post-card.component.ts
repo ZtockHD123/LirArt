@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Importa Router para navegación
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-card',
@@ -9,21 +9,16 @@ import { Router } from '@angular/router'; // Importa Router para navegación
 })
 export class PostCardComponent implements OnInit {
 
-  // @Input() permite que el componente padre (MenuPage) pase datos a este componente
-  @Input() postData: any; // Define una interfaz más específica si es posible
+  @Input() postData: any;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    // Puedes añadir lógica aquí si es necesario al iniciar el componente
-    // if (!this.postData) {
-    //   console.error('PostCardComponent: No postData provided!');
-    // }
+
   }
 
   goToProfileIlustrator(){
     console.log('Ir a perfil Ilustrador');
-    // Cambia '/menu' por la ruta correcta de tu página principal si es diferente
     this.router.navigateByUrl('/perfil-ilustrador')
   }
 }

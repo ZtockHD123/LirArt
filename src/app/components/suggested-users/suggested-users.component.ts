@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SuggestedUsersComponent implements OnInit {
 
-  @Input() suggestedUsers: any[] = []; // Recibe la lista de usuarios
+  @Input() suggestedUsers: any[] = [];
 
   constructor() { }
 
@@ -16,7 +16,5 @@ export class SuggestedUsersComponent implements OnInit {
 
   followUser(user: any) {
     console.log('Intentando seguir a:', user.username);
-    // Aquí iría la lógica para seguir al usuario (llamar a un servicio, etc.)
-    // Podrías cambiar el botón a "Siguiendo" o deshabilitarlo.
   }
 }

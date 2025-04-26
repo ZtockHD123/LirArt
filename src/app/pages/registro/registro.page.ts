@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // CommonModule y ReactiveFormsModule se importarán en el NgModule
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// IonicModule se importará en el NgModule
 
 @Component({
-  selector: 'app-registro', // Cambiado
-  templateUrl: 'registro.page.html', // Cambiado
-  styleUrls: ['registro.page.scss'], // Cambiado
+  selector: 'app-registro',
+  templateUrl: 'registro.page.html',
+  styleUrls: ['registro.page.scss'],
   standalone: false
 })
-export class RegistroPage implements OnInit { // Cambiado
+export class RegistroPage implements OnInit {
 
   registerForm!: FormGroup;
   regiones: any[] = [];
@@ -86,15 +85,13 @@ export class RegistroPage implements OnInit { // Cambiado
   }
 
   goToLogin() {
-    this.router.navigateByUrl('/tabs/tab1'); // Nota: Esta ruta no se cambió, asumiendo que sigue siendo correcta.
+    this.router.navigateByUrl('/incio');
   }
 
   verTerminos() {
     console.log('Clic en "Términos y Condiciones" (Modo Diseño)');
   }
 
-  // Esta función parece duplicada con createAccount y navega. Decide cuál mantener.
-  // Si esta es la correcta, renómbrala a 'onSubmit' o algo más descriptivo.
   crearCuenta() {
     console.log('Boton para Crear cuenta presionado - Navegando a /inicio');
     this.router.navigateByUrl('/inicio');

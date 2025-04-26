@@ -1,8 +1,6 @@
-// Ruta: src/app/pages/perfil-ilustrador/perfil-ilustrador.page.ts
 
 import { Component, OnInit } from '@angular/core';
 
-// Interfaz para el objeto Artist (Buena práctica)
 interface Artist {
   name: string;
   profilePicUrl: string;
@@ -16,13 +14,12 @@ interface Artist {
   selector: 'app-perfil-ilustrador',
   templateUrl: './perfil-ilustrador.page.html',
   styleUrls: ['./perfil-ilustrador.page.scss'],
-  standalone: false // Confirmado: standalone: false
+  standalone: false
 })
 export class PerfilILustradorPage implements OnInit {
 
   selectedView: 'portafolio' | 'productos' = 'portafolio';
 
-  // --- Datos de Ejemplo ---
   artist: Artist = {
     name: '@pandaz667',
     profilePicUrl: 'assets/img/pfp2.jpg',
@@ -50,7 +47,6 @@ export class PerfilILustradorPage implements OnInit {
     { id: 105, imageUrl: 'assets/img/ventas9.jpg', title: 'Libro Firmado', price: 40000 },
   ];
 
-  // *** NOVEDADES AMPLIADAS PARA TEST SCROLL ***
   novedadesItems: { user: string, time: string, text: string, avatar: string }[] = [
     { user: 'System', time: 'Hoy a las 14:00', text: '¡Nueva comisión abierta!', avatar: 'assets/img/pfp2.jpg'},
     { user: 'System', time: 'Hoy a las 13:00', text: 'Nuevo dibujo hoy a las 13:00', avatar: 'assets/img/pfp2.jpg'},
@@ -60,15 +56,13 @@ export class PerfilILustradorPage implements OnInit {
     { user: 'System', time: 'Hace 4 días', text: 'Stream de dibujo esta noche.', avatar: 'assets/img/pfp2.jpg'},
     { user: 'System', time: 'Hace 5 días', text: 'Recordatorio: Concurso activo.', avatar: 'assets/img/pfp2.jpg'},
     { user: 'System', time: 'Hace 6 días', text: 'Gracias por los 1000 seguidores!', avatar: 'assets/img/pfp2.jpg'},
-    // --- Items Adicionales ---
+
     { user: 'System', time: 'Hace 1 semana', text: 'Revisando portfolio antiguo...', avatar: 'assets/img/pfp2.jpg'},
     { user: 'System', time: 'Hace 1 semana', text: 'Próximo personaje: diseño conceptual.', avatar: 'assets/img/pfp2.jpg'},
     { user: 'System', time: 'Hace 1 semana', text: 'Inspiración encontrada en la naturaleza.', avatar: 'assets/img/pfp2.jpg'},
     { user: 'System', time: 'Hace 2 semanas', text: 'Planificando el mes de trabajo.', avatar: 'assets/img/pfp2.jpg'},
   ];
-  // *** FIN NOVEDADES AMPLIADAS ***
 
-  // *** COMENTARIOS AMPLIADOS PARA TEST SCROLL ***
   comentariosItems: { user: string, handle: string, text: string, avatar: string }[] = [
      { user: 'Pauly Ilustra', handle: '@_ramitadequilo_', text: 'Me encanta esta cuenta!', avatar: 'assets/img/pfp7.jpg'},
      { user: 'Estela', handle: '@coleoptera.ilus', text: 'Me fascinan los ocs que tiene.', avatar: 'assets/img/pfp4.jpg'},
@@ -80,16 +74,13 @@ export class PerfilILustradorPage implements OnInit {
      { user: 'Fan #1', handle: '@superFan', text: '¡Eres el mejor!', avatar: 'assets/img/pfp9.png'},
      { user: 'Pregunton', handle: '@asky', text: '¿Qué programa usas para dibujar?', avatar: 'assets/img/pfp10.png'},
      { user: 'ColegaArtista', handle: '@drawFellow', text: '¡Buen trabajo!', avatar: 'assets/img/pfp11.jpg'},
-     // --- Items Adicionales ---
+
      { user: 'NuevoSeguidor', handle: '@newbie', text: 'Acabo de descubrir tu arte, ¡es genial!', avatar: 'assets/img/pfp12.png'},
      { user: 'Detallista', handle: '@pixelPeep', text: 'Me fijo mucho en los detalles de fondo, ¡qué nivel!', avatar: 'assets/img/pfp13.jpg'},
      { user: 'Observador', handle: '@watcher', text: 'La evolución desde tus primeros trabajos es notable.', avatar: 'assets/img/pfp14.png'},
      { user: 'PANXO', handle: '@p.e.j_art', text: '¡Sigue así, no pares!', avatar: 'assets/img/pfp15.jpg'},
      { user: 'Danny Martínez 💫', handle: '@dannypmr2004', text: 'Saludos desde lejos, admiro tu trabajo.', avatar: 'assets/img/pfp16.jpg'},
    ];
-  // *** FIN COMENTARIOS AMPLIADOS ***
-
-  // --- Fin Datos de Ejemplo ---
 
   constructor() { }
 
@@ -109,10 +100,8 @@ export class PerfilILustradorPage implements OnInit {
     console.log('Vista seleccionada:', this.selectedView);
   }
 
-  // --- Otros Métodos ---
   followArtist() { console.log('Seguir al artista:', this.artist.name); }
   sendMessage() { console.log('Enviar mensaje al artista:', this.artist.name); }
   viewPortfolioItem(item: any) { console.log('Viendo item portafolio:', item.id); }
   viewProductItem(item: any) { console.log('Viendo item producto:', item.id); }
-
-} // <- Llave de cierre de la clase
+}

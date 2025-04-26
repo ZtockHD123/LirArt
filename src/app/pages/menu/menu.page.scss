@@ -1,22 +1,17 @@
 ion-grid {
-  height: 100%; // Asegura que la grid ocupe el alto disponible
+  height: 100%;
 }
 
 ion-row {
   height: 100%;
 }
 
-ion-col {
-  // Estilos generales para columnas si son necesarios
-}
-
 .feed-col {
-  overflow-y: auto; // Permite el scroll vertical solo en la columna central
-  height: calc(100vh - 60px); // Ajusta 60px según la altura de tu header
+  overflow-y: auto;
+  height: calc(100vh - 60px);
   padding-top: 10px;
   padding-bottom: 10px;
 
-  // Estilos para la barra de scroll si quieres personalizarla (opcional)
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -30,8 +25,5 @@ ion-col {
 }
 
 .side-nav-col, .side-content-col {
-    padding-top: 20px; // Un poco de espacio superior
+    padding-top: 20px;
 }
-
-// Ocultar columnas laterales en pantallas pequeñas ya está hecho con
-// ion-hide-sm-down en el HTML.

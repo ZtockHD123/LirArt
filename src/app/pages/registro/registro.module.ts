@@ -1,17 +1,17 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms'; // Cambiado de FormsModule
-import { RegistroPageRoutingModule } from './registro-routing.module'; // Cambiado
-import { RegistroPage } from './registro.page'; // Importar la página/componente
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegistroPageRoutingModule } from './registro-routing.module';
+import { RegistroPage } from './registro.page';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
-    ReactiveFormsModule, // Asegúrate que sea este el que necesitas (usado en el .ts)
-    RegistroPageRoutingModule // Cambiado
+    ReactiveFormsModule,
+    RegistroPageRoutingModule
   ],
-  declarations: [RegistroPage] // Declarar la página/componente
+  declarations: [RegistroPage]
 })
-export class RegistroPageModule {} // Cambiado
+export class RegistroPageModule {}

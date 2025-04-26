@@ -1,16 +1,8 @@
-// Ruta: src/app/pages/perfil-ilustrador/perfil-ilustrador.page.scss
 
-// --- Variables ---
 $banner-height-desktop: 200px;
 $avatar-size-desktop: 100px;
-$side-card-content-max-height: 250px; // Altura máxima para el scroll de tarjetas laterales
+$side-card-content-max-height: 250px;
 
-// --- Estilos Generales ---
-ion-content {}
-.profile-grid {}
-.main-col {}
-
-// --- Banner ---
 .banner-container {
   height: $banner-height-desktop;
   background-size: cover; background-position: center center; position: relative;
@@ -30,7 +22,6 @@ ion-content {}
   h2 { font-weight: bold; margin: 0; color: var(--ion-text-color); }
 }
 
-// --- Barra de Estadísticas ---
 .stats-bar {
   display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;
   gap: 15px; padding-bottom: 15px; margin-left: var(--ion-padding, 16px);
@@ -42,28 +33,23 @@ ion-content {}
   }
 }
 
-// --- Botones de Acción ---
 .action-buttons {
   display: flex; gap: 10px; padding: 0 var(--ion-padding, 16px);
   margin-bottom: 20px;
   ion-button { margin: 0; flex: 1; }
 }
 
-// --- Segmento de Vistas (Portafolio/Productos) ---
 ion-segment.view-segment {
   margin: 10px var(--ion-padding, 16px) 15px;
-  // height: 45px; // <-- *** ELIMINADA esta línea para evitar que se corte ***
   border-radius: 8px;
   --background: var(--ion-color-light, #f4f4f4);
 
   ion-segment-button {
     --indicator-height: 0px;
     --background: transparent;
-    --background-checked: #7761A7; // Morado activo
-    --color: var(--ion-color-medium-shade, #777); // Gris inactivo
-    --color-checked: #ffffff; // Blanco activo
+    --background-checked: #7761A7;
+    --color: var(--ion-color-medium-shade, #777);
     --border-radius: 6px;
-    // Ajustar padding si es necesario para el contenido interno
     --padding-top: 8px;
     --padding-bottom: 8px;
     --padding-start: 10px;
@@ -72,35 +58,29 @@ ion-segment.view-segment {
     text-transform: none;
     font-weight: 500;
     margin: 4px;
-    // Alinear contenido interno verticalmente (puede ayudar si aún se corta)
     display: flex;
     align-items: center;
     justify-content: center;
 
-
     &::before { background: none; }
 
-    // Ajustar tamaño/margen del icono si es necesario
     ion-icon {
       margin-left: 5px;
-      font-size: 1.2em; // Puedes ajustar este tamaño
+      font-size: 1.2em;
     }
-    // Ajustar tamaño/margen del label si es necesario
+
     ion-label {
-       margin-top: 0; // Resetear márgenes por si acaso
+       margin-top: 0;
        margin-bottom: 0;
-       white-space: nowrap; // Evitar que el texto salte de línea
+       white-space: nowrap;
     }
   }
 }
 
-
-// --- Secciones Portafolio / Productos ---
 .portfolio-section, .products-section {
   margin-bottom: 20px;
 }
 
-// --- Scroll Horizontal ---
 .horizontal-scroll {
   overflow-x: auto; overflow-y: hidden; white-space: nowrap; padding-bottom: 10px;
   margin-left: calc(-1 * var(--ion-padding, 16px)); padding-left: var(--ion-padding, 16px);
@@ -132,8 +112,6 @@ ion-segment.view-segment {
   }
 }
 
-// --- Columna Lateral y Side Cards ---
-.side-col {}
 .side-card {
   margin-left: var(--ion-padding, 16px); margin-right: var(--ion-padding, 16px);
   margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -145,13 +123,10 @@ ion-segment.view-segment {
   ion-card-content {
      padding-top: 10px; padding-bottom: 5px;
 
-     // *** ASEGURAR SCROLL VERTICAL AQUÍ ***
-     max-height: $side-card-content-max-height; // Re-asegurar altura máxima
-     overflow-y: auto; // Re-asegurar scroll vertical automático
-     // *** FIN ASEGURAR SCROLL ***
+     max-height: $side-card-content-max-height;
+     overflow-y: auto;
 
      ion-list { padding: 0; background: transparent;
-        // Estilos para items de Novedades y Comentarios
         ion-item {
             --padding-start: 0; --inner-padding-end: 0; --inner-border-width: 0 0 1px 0;
             --border-color: var(--ion-color-step-100, #f2f2f2); --background: transparent;
@@ -166,9 +141,7 @@ ion-segment.view-segment {
               p small { display: block; font-size: 0.8em; color: var(--ion-color-step-500, #777); margin-top: 3px; }
             }
             .options-icon { color: var(--ion-color-step-400, #999); cursor: pointer; align-self: center; padding-left: 10px; }
-         } // Fin ion-item
-     } // Fin ion-list
-  } // Fin ion-card-content
-} // Fin side-card
-
-// --- SIN Media Query ---
+         }
+     }
+  }
+}

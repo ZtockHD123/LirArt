@@ -1,19 +1,13 @@
 ion-item {
-  --inner-border-width: 0; // Quita líneas internas si aparecen
+  --inner-border-width: 0;
   margin-bottom: 5px;
   ion-label {
-    font-weight: 500; // O el peso que prefieras
+    font-weight: 500;
   }
   ion-icon {
-    margin-right: 15px; // Espacio entre icono y texto
+    margin-right: 15px;
   }
-  // Estilo para cuando el mouse pasa por encima
   &:hover {
-    --background: rgba(var(--ion-color-primary-rgb), 0.1); // Un fondo suave
+    --background: rgba(var(--ion-color-primary-rgb), 0.1);
   }
 }
-// Puedes añadir una clase 'active' al item seleccionado y darle estilo:
-// ion-item.active {
-//   --background: rgba(var(--ion-color-primary-rgb), 0.1);
-//   border-left: 3px solid var(--ion-color-primary);
-// }

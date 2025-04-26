@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegistroPage } from './registro.page'; // Importar la página
+import { RegistroPage } from './registro.page';
 
 const routes: Routes = [
   {
     path: '',
-    // loadComponent: () => import('./tab2.page').then(m => m.Tab2Page) // Eliminado
-    component: RegistroPage // Cambiado para usar component en lugar de loadComponent
+    component: RegistroPage
   }
 ];
 
@@ -14,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class RegistroPageRoutingModule {} // Cambiado
+export class RegistroPageRoutingModule {}

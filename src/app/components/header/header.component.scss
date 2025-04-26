@@ -1,84 +1,81 @@
 .custom-header {
-  position: relative; // Necesario para posicionar la imagen de fondo
-  // Eliminar borde inferior si existe por defecto
+  position: relative;
   &::after {
     display: none;
   }
 }
 
 .custom-toolbar {
-  --background: #D8DEE9; // Color de fondo azulado/grisáceo claro de la imagen
-  --min-height: 60px; // Altura del header
+  --background: #D8DEE9;
+  --min-height: 60px;
   display: flex;
   align-items: center;
-  padding: 0 10px; // Padding horizontal general
-  position: relative; // Para que el contenido esté sobre la imagen de fondo
-  z-index: 10; // Asegura que el toolbar esté sobre la imagen
+  padding: 0 10px;
+  position: relative;
+  z-index: 10;
 }
 
-// --- Logo ---
+
 .logo-container {
-  // Ajusta el tamaño y margen del logo si usas imagen o texto
   .header-logo-img {
-    height: 40px; // Ajusta el tamaño de tu logo
+    height: 40px;
     margin-left: 10px;
   }
 }
 
-// --- Contenido Central (Home + Búsqueda) ---
 .center-content {
   display: flex;
   align-items: center;
-  flex-grow: 1; // Permite que ocupe el espacio disponible
-  justify-content: center; // Centra el contenido si hay espacio
-  margin: 0 15px; // Margen a los lados
+  flex-grow: 1;
+  justify-content: center;
+  margin: 0 15px;
 }
 
 .home-button {
-  margin-right: 5px; // Espacio entre home y la barra
+  margin-right: 5px;
   --padding-start: 6px;
   --padding-end: 6px;
   ion-icon {
-    font-size: 1.5em; // Tamaño del icono home
+    font-size: 1.5em;
   }
 }
 
 .header-searchbar {
-  --background: #ECEFF4; // Fondo ligeramente más claro para la barra
-  --border-radius: 20px; // Bordes redondeados
-  --box-shadow: none; // Sin sombra
-  --min-height: 38px; // Altura de la barra
+  --background: #ECEFF4;
+  --border-radius: 20px;
+  --box-shadow: none;
+  --min-height: 38px;
 
-  --color: #707070; //
-  --icon-color: #707070; // Color del icono de búsqueda
+  --color: #707070;
+  --icon-color: #707070;
   --placeholder-color: var(--ion-color-light-shade);
   --clear-button-color:  #707070;
-  width: 100%; // Ocupa el espacio disponible en el contenedor central
-  max-width: 400px; // Limita el ancho máximo de la barra
-  height: 38px; // Asegura la altura
-  padding: 0; // Quita padding interno si interfiere
+  width: 100%;
+  max-width: 400px;
+  height: 38px;
+  padding: 0;
 
   .searchbar-input-container {
     height: 100%;
     .searchbar-input {
-      padding-left: 35px !important; // Ajusta para el icono
+      padding-left: 35px !important;
     }
   }
 }
 
 
-// --- Botones Finales (Carrito + Perfil) ---
+
 .end-buttons {
+
   display: flex;
   align-items: center;
 
   ion-button {
     --padding-start: 6px;
     --padding-end: 6px;
-    margin-left: 5px; // Espacio entre botones
-
+    margin-left: 5px;
     ion-icon {
-      font-size: 1.6em; // Tamaño iconos carrito/perfil
+      font-size: 1.6em;
     }
   }
 
@@ -86,11 +83,10 @@
     ion-avatar {
       width: 32px;
       height: 32px;
-      border: 1px solid var(--ion-color-medium-tint); // Borde sutil al avatar
+      border: 1px solid var(--ion-color-medium-tint);
     }
   }
 
-  // Estilos para el badge del carrito (opcional)
   ion-badge {
     position: absolute;
     top: 2px;
@@ -99,40 +95,33 @@
     padding: 2px 4px;
     --border-radius: 10px;
   }
+
 }
 
-// --- Imagen de Fondo ---
 .header-background-image {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 200px; // Ancho de la imagen de fondo (ajustar)
-  background-image: url('/assets/img/LogoLirartOscuro.png'); // ¡¡CAMBIA ESTO!! Ruta a tu imagen
-  background-size: cover; // O 'contain' según necesites
-  background-position: center center; // O ajusta la posición
+  width: 200px;
+  background-image: url('/assets/img/LogoLirartOscuro.png');
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0.5; // Ajusta la opacidad si quieres que sea sutil
-  z-index: 1; // Detrás del contenido del toolbar
-  // Puedes usar clip-path si quieres una forma más compleja
-  // clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%); // Ejemplo de corte diagonal
+  opacity: 0.5;
+  z-index: 1;
 }
 
-// --- Ajustes Responsivos (Opcional) ---
 @media (max-width: 767px) {
-  .logo-container {
-    // Podrías ocultar el logo de texto en pantallas muy pequeñas si es necesario
-    // display: none;
-  }
   .center-content {
-    margin: 0 5px; // Reduce márgenes en móvil
+    margin: 0 5px;
   }
   .header-searchbar {
-     max-width: none; // Permite que la barra ocupe más espacio si es necesario
+     max-width: none;
   }
   .end-buttons {
      ion-button ion-icon {
-        font-size: 1.4em; // Iconos ligeramente más pequeños
+        font-size: 1.4em;
      }
      .profile-button ion-avatar {
         width: 28px;

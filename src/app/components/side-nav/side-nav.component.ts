@@ -13,6 +13,4 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() {}
 
-  // Puedes añadir métodos aquí para manejar clics en los items del menú
-  // por ejemplo: goTo(page: string) { ... }
 }

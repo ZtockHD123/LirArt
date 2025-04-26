@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
-  standalone: false, // Asumiendo que InicioPage tampoco es standalone
+  standalone: false,
 })
 export class InicioPage implements OnInit {
 
@@ -18,7 +18,7 @@ export class InicioPage implements OnInit {
 
   login() {
     console.log('Botón Acceder presionado');
-    this.router.navigateByUrl('/perfil-ilustrador');
+    this.router.navigateByUrl('/menu');
   }
 
   forgotPassword() {

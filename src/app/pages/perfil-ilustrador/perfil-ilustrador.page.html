@@ -1,23 +1,16 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/menu"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Perfil del Artista</ion-title>
-  </ion-toolbar>
- </ion-header>
- 
+<app-header></app-header>
+
  <ion-content>
   <ion-grid class="profile-grid">
     <ion-row>
       <ion-col size="12" size-md="8" class="main-col">
- 
+
         <div class="banner-container" [style.background-image]="'url(' + artist.bannerUrl + ')'"> <ion-avatar class="profile-avatar"> <img [src]="artist.profilePicUrl" alt="Foto de perfil"> </ion-avatar> </div>
         <div class="artist-name-container"> <h2>{{ artist.name }}</h2> </div>
         <div class="stats-bar ion-padding-horizontal"> <div class="stat-item"> <ion-icon name="heart-outline" color="danger"></ion-icon> <ion-label>{{ artist.likes | number }} Likes</ion-label> </div> <div class="stat-item" *ngIf="artist.isVerified"> <ion-icon name="checkmark-circle-outline" color="success"></ion-icon> <ion-label>Verificado</ion-label> </div> <div class="stat-item"> <ion-icon name="cash-outline" color="primary"></ion-icon> <ion-label>Ventas {{ artist.sales | number }}</ion-label> </div> </div>
         <div class="action-buttons ion-padding"> <ion-button expand="block" fill="outline" (click)="followArtist()"> <ion-icon slot="start" name="person-add-outline"></ion-icon> Seguir </ion-button> <ion-button expand="block" (click)="sendMessage()"> <ion-icon slot="start" name="send-outline"></ion-icon> Mensaje </ion-button> </div>
- 
- 
+
+
         <ion-segment
           class="view-segment"
           (ionChange)="handleSegmentChange($event)"
@@ -26,12 +19,12 @@
             <ion-label>Portafolio</ion-label>
             <ion-icon name="images-outline"></ion-icon>
           </ion-segment-button>
- 
+
           <ion-segment-button value="productos">
             <ion-label>Productos</ion-label>
             <ion-icon name="bag-handle-outline"></ion-icon>
           </ion-segment-button>
- 
+
         </ion-segment>
         <div class="portfolio-section" *ngIf="selectedView === 'portafolio'">
           <div class="horizontal-scroll">
@@ -39,7 +32,7 @@
             <div class="scroll-item see-more-item" *ngIf="portfolioItems.length > 5"> <ion-icon name="arrow-forward-circle-outline"></ion-icon> <ion-label>Ver más</ion-label> </div>
           </div>
         </div>
- 
+
         <div class="products-section" *ngIf="selectedView === 'productos'">
            <div class="horizontal-scroll">
              <div class="scroll-item product-item" *ngFor="let item of productItems" (click)="viewProductItem(item)">
@@ -49,9 +42,9 @@
               <div class="scroll-item see-more-item" *ngIf="productItems.length > 5"> <ion-icon name="arrow-forward-circle-outline"></ion-icon> <ion-label>Ver más</ion-label> </div>
            </div>
         </div>
- 
+
       </ion-col>
- 
+
       <ion-col size="12" size-md="4" class="side-col">
          <ion-card class="side-card">
              <ion-card-header> <ion-card-title> <ion-icon name="newspaper-outline"></ion-icon> Novedades </ion-card-title> </ion-card-header>

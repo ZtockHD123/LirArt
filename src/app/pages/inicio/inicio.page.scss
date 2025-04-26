@@ -1,40 +1,35 @@
-/* src/app/tab1/tab1.page.scss */
 
-// --- Estilos Base y Comunes ---
 ion-content {
-  // Asegura un fondo base si es necesario, aunque los hijos lo cubrirán
   --background: var(--ion-color-light #1e1e1e);
 }
 
 .main-grid,
 .main-row {
-  // En Desktop, queremos que ocupen toda la altura
-  // En Móvil, la altura será automática (se ajustará en media query)
   height: 100%;
 }
 
 .form-title {
-    display: block; // Asegura que sea visible
+    display: block;
     font-family: 'Poppins', cursive;
-    font-size: 1.8em; // Tamaño
-    font-weight: 700; // Negrita
-    margin-top: 0px; // Espacio debajo de la cabecera (ajustar)
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-top: 0px;
     margin-bottom: 0px;
     text-align: left;
 }
-// Quita padding por defecto de grid y columnas si interfiere
+
 .main-grid,
 ion-col {
   padding: 0;
 }
 
-// Contenedor del contenido del formulario para aplicar padding y centrado
+
 .form-content-wrapper {
   width: 100%;
-  max-width: 450px; // Limita el ancho del form en pantallas muy anchas
-  margin-left: auto; // Centra el wrapper si la columna es más ancha
+  max-width: 450px;
+  margin-left: auto;
   margin-right: auto;
-  padding: 20px; // Padding base (se ajustará en media queries)
+  padding: 20px;
 }
 
 .instruction-text {
@@ -49,17 +44,16 @@ ion-list {
   padding: 0;
 }
 
-// Estilo base para los items de input (se refinará en M/D)
 .input-item {
   --border-width: 1px;
   --inner-border-width: 0;
   --background: var(--ion-color-light, #333);
   --border-color: var(--ion-color-light, #777);
   --border-radius: 8px;
-  --padding-start: 0; // Resetear padding del item
-  --inner-padding-start: 10px; // Padding dentro del input
+  --padding-start: 0;
+  --inner-padding-start: 10px;
   --inner-padding-end: 10px;
-  margin-bottom: 20px; // Espacio entre items
+  margin-bottom: 20px;
 }
 
 ion-label[position="stacked"] {
@@ -67,28 +61,28 @@ ion-label[position="stacked"] {
   font-size: 0.9em;
   font-weight: 500;
   color: var(--ion-color-dark, #333);
-  margin-bottom: 5px; // Espacio entre label y input
-  margin-left: 2px; // Pequeño ajuste visual
+  margin-bottom: 5px;
+  margin-left: 2px;
 }
 
-.input-label { // Estilo específico si es necesario (hereda de stacked)
+.input-label {
     font-family: 'Poppins', cursive;
     font-size: 0.9em;
     font-weight: 500;
     color: var(--ion-color-dark, #333);
   }
 
-// Contenedor para alinear Label Contraseña y Link Olvidaste
+
 .password-label-container {
   display: flex;
-  justify-content: space-between; // Empuja los elementos a los extremos
-  align-items: baseline; // Alinea textos en su base
-  margin-bottom: 5px; // Espacio antes del input de contraseña
-  padding: 0 2px; // Coincidir con margen de label stacked
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+  padding: 0 2px;
 
 }
 
-.password-label { // Estilo específico si es necesario (hereda de stacked)
+.password-label {
   font-family: 'Poppins', cursive;
   font-size: 0.9em;
   font-weight: 500;
@@ -102,7 +96,7 @@ font-family: 'Poppins', cursive;
 }
 
 .checkbox-item {
-  --border-width: 0; // Sin borde
+  --border-width: 0;
   --inner-border-width: 0;
   --background: transparent;
   margin-top: 5px;
@@ -141,45 +135,37 @@ font-family: 'Poppins', cursive;
 }
 
 
-// --- Estilos SOLO para Desktop (md y superior) ---
 @media (min-width: 768px) {
   .form-section-col {
-    // Centrar verticalmente el contenido del formulario en la columna
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // El padding ya está en .form-content-wrapper, quizás no necesitemos aquí
-    // padding: 40px;
   }
 
   .desktop-logo-img {
-    display: block; // Asegura que sea un bloque para márgenes
-    max-width: 320px; // Ajusta el tamaño del logo de escritorio
+    display: block;
+    max-width: 320px;
     margin-bottom: 30px;
-    // Centrar logo:
     margin-left: auto;
     margin-right: auto;
-    // O alinear a la izquierda si se prefiere:
-    // margin-left: 0; margin-right: auto;
   }
 
-  // Ajustes de texto específicos para escritorio si son necesarios
   .instruction-text,
   .input-item ion-label[position="stacked"],
   .password-label-container ion-label,
   .checkbox-item ion-label,
   .register-link-container {
-     text-align: center; // Este sí va centrado
+     text-align: center;
   }
   .instruction-text{
     text-align: left;
   }
 
   .image-section-col {
-    height: 100%; // Columna de imagen debe tener 100% de altura
+    height: 100%;
   }
 
-  .side-image { // La imagen Venti.png
+  .side-image {
     display: block;
     width: 100%;
     height: 100%;
@@ -189,15 +175,14 @@ font-family: 'Poppins', cursive;
 }
 
 
-// --- Estilos SOLO para Móvil (sm y xs) ---
 @media (max-width: 767px) {
-  // La cabecera móvil (definida fuera de la media query si es global, o aquí si es solo móvil)
+
   ion-header.mobile-header ion-toolbar {
-    --background: #7C8BAD; // Color solicitado
-    --min-height: 65px; // Ajusta altura
+    --background: #7C8BAD;
+    --min-height: 65px;
     --border-width: 0;
   }
-  .toolbar-content { // Contenedor del logo en toolbar
+  .toolbar-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -206,44 +191,41 @@ font-family: 'Poppins', cursive;
   }
   .header-logo {
     color: #ffffff;
-    font-family: 'Poppins', cursive; // Reemplaza con tu fuente real
-    font-size: 2.0em; // Ajusta
+    font-family: 'Poppins', cursive;
+    font-size: 2.0em;
     font-weight: normal;
   }
 
-  // Ajustes de layout para móvil
   .main-grid,
   .main-row {
-    height: auto; // La altura la da el contenido
+    height: auto;
   }
 
   .form-section-col {
-    // El padding ya está en .form-content-wrapper
-    order: 1; // Asegura el orden (aunque ya está primero en HTML)
-    padding: 0; // Quitar padding directo de la columna
+    order: 1;
+    padding: 0;
   }
 
   .form-content-wrapper {
-     padding: 20px; // Padding general para móvil
-     max-width: none; // Sin max-width en móvil
-     margin-top: 0; // Sin margen superior extra por defecto
+     padding: 20px;
+     max-width: none;
+     margin-top: 0;
   }
 
-  .mobile-title { // Estilo del h3 "Inicia Sesión" en móvil
-      display: block; // Asegura que sea visible
+  .mobile-title {
+      display: block;
       font-family: 'Poppins', cursive;
-      font-size: 1.8em; // Tamaño
-      font-weight: 700; // Negrita
-      margin-top: 10px; // Espacio debajo de la cabecera (ajustar)
+      font-size: 1.8em;
+      font-weight: 700;
+      margin-top: 10px;
       margin-bottom: 10px;
       text-align: left;
   }
 
   .instruction-text {
-     margin-bottom: 30px; // Ajustar espacio
+     margin-bottom: 30px;
   }
 
-  // Asegurar estilos de items/inputs para móvil (deberían heredar bien)
   .input-item {
      margin-bottom: 15px;
   }
