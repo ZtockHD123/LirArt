@@ -118,8 +118,8 @@ ion-segment.view-segment {
     ion-img { width: 100%; height: 100px; object-fit: cover; display: block; }
 
     .item-details { padding: 8px; text-align: left; }
-    .item-title { font-size: 0.85em; font-weight: 500; white-space: normal; margin-bottom: 4px; color: var(--ion-text-color); }
-    .item-price { font-size: 0.9em; font-weight: 600; color: var(--ion-color-primary); }
+    .item-title { font-size: 0.85em; font-weight: 500; white-space: normal; margin-bottom: 4px; color: #212630; }
+    .item-price { font-size: 0.9em; font-weight: 600; color: #184777; }
 
     &.see-more-item {
         display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
@@ -162,7 +162,7 @@ ion-segment.view-segment {
               h3 { font-size: 0.9em; font-weight: bold; margin-top: 0; margin-bottom: 2px; color: var(--ion-text-color);
                 .handle { font-weight: normal; color: var(--ion-color-step-600, #666); font-size: 0.9em; margin-left: 5px;}
               }
-              p { font-size: 0.9em; margin: 0; color: var(--ion-color-step-800, #333); }
+              p { font-size: 0.9em; margin: 0; color: var(--ion-color-step-800, #FFFFFF); }
               p small { display: block; font-size: 0.8em; color: var(--ion-color-step-500, #777); margin-top: 3px; }
             }
             .options-icon { color: var(--ion-color-step-400, #999); cursor: pointer; align-self: center; padding-left: 10px; }
