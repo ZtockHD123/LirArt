@@ -1,0 +1,20 @@
+<div class="suggested-container">
+  <ion-list-header>
+    <ion-label>A quién seguir</ion-label>
+    </ion-list-header>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let user of suggestedUsers" class="user-item">
+      <ion-avatar slot="start">
+        <img [src]="user.avatar || 'assets/img/default-avatar.png'" alt="User Avatar">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ user.name }}</h2>
+        <p>{{ user.username }}</p>
+      </ion-label>
+      <ion-button size="small" fill="outline" slot="end" (click)="followUser(user)">
+        Seguir
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</div>

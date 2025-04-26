@@ -1,0 +1,16 @@
+<ion-card *ngIf="postData">
+  <ion-item lines="none" class="user-info">
+    <ion-avatar slot="start">
+      <img [src]="postData.user?.avatar || 'assets/img/raydraw1.png'" alt="User Avatar">
+    </ion-avatar>
+    <ion-label>
+      <h2  (click)="goToProfileIlustrator()">{{ postData.user?.username }}</h2>
+      <p>{{ postData.timestamp }}</p>
+    </ion-label>
+    </ion-item>
+  <ion-card-content class="post-content">
+    <p *ngIf="postData.text">{{ postData.text }}</p>
+    <img *ngIf="postData.imageUrl" [src]="postData.imageUrl" alt="Post Image" class="post-image">
+  </ion-card-content>
+
+  </ion-card>

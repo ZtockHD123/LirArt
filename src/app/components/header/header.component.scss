@@ -1,0 +1,146 @@
+.custom-header {
+  position: relative; // Necesario para posicionar la imagen de fondo
+  // Eliminar borde inferior si existe por defecto
+  &::after {
+    display: none;
+  }
+}
+
+.custom-toolbar {
+  --background: #D8DEE9; // Color de fondo azulado/grisáceo claro de la imagen
+  --min-height: 60px; // Altura del header
+  display: flex;
+  align-items: center;
+  padding: 0 10px; // Padding horizontal general
+  position: relative; // Para que el contenido esté sobre la imagen de fondo
+  z-index: 10; // Asegura que el toolbar esté sobre la imagen
+}
+
+// --- Logo ---
+.logo-container {
+  // Ajusta el tamaño y margen del logo si usas imagen o texto
+  .header-logo-img {
+    height: 40px; // Ajusta el tamaño de tu logo
+    margin-left: 10px;
+  }
+}
+
+// --- Contenido Central (Home + Búsqueda) ---
+.center-content {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; // Permite que ocupe el espacio disponible
+  justify-content: center; // Centra el contenido si hay espacio
+  margin: 0 15px; // Margen a los lados
+}
+
+.home-button {
+  margin-right: 5px; // Espacio entre home y la barra
+  --padding-start: 6px;
+  --padding-end: 6px;
+  ion-icon {
+    font-size: 1.5em; // Tamaño del icono home
+  }
+}
+
+.header-searchbar {
+  --background: #ECEFF4; // Fondo ligeramente más claro para la barra
+  --border-radius: 20px; // Bordes redondeados
+  --box-shadow: none; // Sin sombra
+  --min-height: 38px; // Altura de la barra
+
+  --color: #707070; //
+  --icon-color: #707070; // Color del icono de búsqueda
+  --placeholder-color: var(--ion-color-light-shade);
+  --clear-button-color:  #707070;
+  width: 100%; // Ocupa el espacio disponible en el contenedor central
+  max-width: 400px; // Limita el ancho máximo de la barra
+  height: 38px; // Asegura la altura
+  padding: 0; // Quita padding interno si interfiere
+
+  .searchbar-input-container {
+    height: 100%;
+    .searchbar-input {
+      padding-left: 35px !important; // Ajusta para el icono
+    }
+  }
+}
+
+
+// --- Botones Finales (Carrito + Perfil) ---
+.end-buttons {
+  display: flex;
+  align-items: center;
+
+  ion-button {
+    --padding-start: 6px;
+    --padding-end: 6px;
+    margin-left: 5px; // Espacio entre botones
+
+    ion-icon {
+      font-size: 1.6em; // Tamaño iconos carrito/perfil
+    }
+  }
+
+  .profile-button {
+    ion-avatar {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--ion-color-medium-tint); // Borde sutil al avatar
+    }
+  }
+
+  // Estilos para el badge del carrito (opcional)
+  ion-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.7em;
+    padding: 2px 4px;
+    --border-radius: 10px;
+  }
+}
+
+// --- Imagen de Fondo ---
+.header-background-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 200px; // Ancho de la imagen de fondo (ajustar)
+  background-image: url('/assets/img/LogoLirartOscuro.png'); // ¡¡CAMBIA ESTO!! Ruta a tu imagen
+  background-size: cover; // O 'contain' según necesites
+  background-position: center center; // O ajusta la posición
+  background-repeat: no-repeat;
+  opacity: 0.5; // Ajusta la opacidad si quieres que sea sutil
+  z-index: 1; // Detrás del contenido del toolbar
+  // Puedes usar clip-path si quieres una forma más compleja
+  // clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%); // Ejemplo de corte diagonal
+}
+
+// --- Ajustes Responsivos (Opcional) ---
+@media (max-width: 767px) {
+  .logo-container {
+    // Podrías ocultar el logo de texto en pantallas muy pequeñas si es necesario
+    // display: none;
+  }
+  .center-content {
+    margin: 0 5px; // Reduce márgenes en móvil
+  }
+  .header-searchbar {
+     max-width: none; // Permite que la barra ocupe más espacio si es necesario
+  }
+  .end-buttons {
+     ion-button ion-icon {
+        font-size: 1.4em; // Iconos ligeramente más pequeños
+     }
+     .profile-button ion-avatar {
+        width: 28px;
+        height: 28px;
+     }
+  }
+  .header-background-image {
+     width: 100px; // Imagen de fondo más pequeña en móvil
+     opacity: 0.3;
+  }
+}

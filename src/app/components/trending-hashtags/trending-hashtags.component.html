@@ -1,0 +1,18 @@
+<div class="trending-container">
+  <ion-list-header>
+    <ion-label>Para ti</ion-label>
+  </ion-list-header>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let ht of hashtags" class="hashtag-item" button detail="true" (click)="searchHashtag(ht.tag)">
+      <ion-label>
+        <p class="location">{{ ht.location }}</p>
+        <h2>{{ ht.tag }}</h2>
+        <p class="count">{{ ht.count }}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" size="small">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</div>
