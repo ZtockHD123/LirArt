@@ -12,7 +12,7 @@ import { InicioPage } from './inicio.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    InicioPageRoutingModule
+    InicioPageRoutingModule,
   ],
   declarations: [InicioPage]
 })

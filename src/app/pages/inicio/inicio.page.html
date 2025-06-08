@@ -28,7 +28,7 @@
             <ion-label class="input-label">Correo Electrónico</ion-label>
 
             <ion-item class="input-item">
-              <ion-input type="email" placeholder="Text" required></ion-input>
+              <ion-input type="email" placeholder="tucorreo@gmail.com" required [(ngModel)]="loginData.correo" name="correo"></ion-input>
             </ion-item>
 
             <div class="password-label-container">
@@ -37,7 +37,7 @@
             </div>
 
             <ion-item class="input-item">
-               <ion-input type="password" placeholder="Text" required></ion-input>
+            <ion-input type="password" placeholder="Contraseña" required [(ngModel)]="loginData.contrasena" name="contrasena"></ion-input>
             </ion-item>
 
             <ion-item class="checkbox-item">
