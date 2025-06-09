@@ -82,7 +82,7 @@ LirArt es una aplicación diseñada como una plataforma social y/o marketplace p
 2. [Consideraciones](#consideraciones)
 
 ## Base de datos
-En esta entrega, se realizó la implementación de la base de datos utilizando pgAdmin4, con soporte para PostgreSQL y MySQL. Para facilitar el desarrollo y las pruebas, se generaron datos de prueba a través de Postman. El servidor fue desarrollado utilizando Express. A continuación, se listan las tablas de la base de datos::
+En esta entrega, se realizó la implementación de la base de datos utilizando PostgreSQL y la interfaz gráfica pgAdmin4. Para facilitar el desarrollo, se realizaron testeos con datos de prueba a través de Postman. El servidor fue desarrollado utilizando Express. A continuación, se listan las tablas de la base de datos:
 
 - **Regions**: Almacena información sobre las regiones geográficas.
 
@@ -116,12 +116,16 @@ En esta entrega, se realizó la implementación de la base de datos utilizando p
 
 - **Reviews**: Guarda las reseñas y calificaciones de productos o artistas.
 
-El modelo Entidad-Relación (MER) de la base de datos está disponible en el siguiente enlace de Lucidchart:
-[Modelo MER de la Base de Datos](https://lucid.app/lucidchart/01af34c8-475b-45ea-911e-d14e2b5dd320/edit?view_items=y2aLvrFcJ4wM&invitationId=inv_308cdc02-ea04-48f7-88fe-8445783021f1)
+El modelo relacional (MR) de la base de datos está disponible en el siguiente enlace de Lucidchart:
+[Modelo MER de la Base de Datos](https://lucid.app/lucidchart/01af34c8-475b-45ea-911e-d14e2b5dd320/edit?viewport_loc=-1836%2C-1764%2C4940%2C2288%2C0_0&invitationId=inv_308cdc02-ea04-48f7-88fe-8445783021f1)
 
 ## Consideraciones
 
-- La contraseña del loggin para la base de datos, hay que cambiarla segun el usuario, esto se hace dentro del archivo ".env"
+- La contraseña del loggin para la base de datos, hay que cambiarla segun el usuario de PostreSQL, esto se hace dentro del archivo ".env"
+
+- Para inicializar el servidor de Express, se debe utilizar el comando "node server.js" en la carptea de "backend-lirart" de la carpteta del proyecto para que funcione correctamente.
+
+- Para inicializar la página web, se debe utilizar el comando "ionic serve" en la carptea principal "Lirart" para que funcione correctamente.
 
 - La prueba utilizada en Postman de ejemplo:
 
@@ -129,8 +133,8 @@ El modelo Entidad-Relación (MER) de la base de datos está disponible en el sig
 {
     "firstName": "Claudio",
     "lastName": "Toledo",
-    "username": "papayons",
-    "email": "papayons@gmail.com",
+    "username": "ClaudioT",
+    "email": "toledocluadio@gmail.com",
     "password": "papayons",
     "rut": "23324759-6",
     "regionId": 1,
