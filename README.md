@@ -2,7 +2,12 @@
 - Francisca Abarca
 - Fabián Solis
 - Claudio Toledo
+
 # LirArt - app de ventas para artistas
+
+---
+
+# Entrega 1
 
 ##  Índice
 1. [Resumen del Proyecto](#resumen-del-proyecto)
@@ -68,3 +73,70 @@ LirArt es una aplicación diseñada como una plataforma social y/o marketplace p
 - **SASS** (para estilos (.scss))
 - **RxJS** (para manejo reactivo (implícito en Angular))
 - **Angular Router** (para navegación entre vistas)
+
+---
+# Entrega 2
+
+## Índice
+1. [Base de datos](#base-de-datos)
+2. [Consideraciones](#consideraciones)
+
+## Base de datos
+En esta entrega, se realizó la implementación de la base de datos utilizando pgAdmin4, con soporte para PostgreSQL y MySQL. Para facilitar el desarrollo y las pruebas, se generaron datos de prueba a través de Postman. El servidor fue desarrollado utilizando Express. A continuación, se listan las tablas de la base de datos::
+
+- **Regions**: Almacena información sobre las regiones geográficas.
+
+- **Comunas**: Contiene datos de las comunas, vinculadas a sus respectivas regiones.
+
+- **Users**: Guarda los datos de los usuarios de la plataforma (clientes, ilustradores).
+
+- **Posts**: Almacena las publicaciones realizadas por los usuarios.
+
+- **Comments**: Contiene los comentarios que los usuarios hacen en las publicaciones.
+
+- **Likes**: Registra los "me gusta" que los usuarios dan a las publicaciones.
+
+- **Follows**: Registra las relaciones de seguimiento entre usuarios (quién sigue a quién).
+
+- **Products**: Almacena los productos que los artistas ponen a la venta.
+
+- **CartItems**: Representa los artículos que un usuario tiene en su carrito de compras.
+
+- **Orders**: Guarda la información de las órdenes de compra realizadas.
+
+- **OrderItems**: Detalla los productos incluidos en cada orden de compra.
+
+- **Hashtags**: Contiene las etiquetas o hashtags utilizados en las publicaciones.
+
+- **PostHashtags**: Tabla de unión para relacionar publicaciones con sus hashtags.
+
+- **Notifications**: Almacena las notificaciones para los usuarios.
+
+- **SavedContent**: Permite a los usuarios guardar publicaciones o productos.
+
+- **Reviews**: Guarda las reseñas y calificaciones de productos o artistas.
+
+El modelo Entidad-Relación (MER) de la base de datos está disponible en el siguiente enlace de Lucidchart:
+[Modelo MER de la Base de Datos](https://lucid.app/lucidchart/01af34c8-475b-45ea-911e-d14e2b5dd320/edit?view_items=y2aLvrFcJ4wM&invitationId=inv_308cdc02-ea04-48f7-88fe-8445783021f1)
+
+## Consideraciones
+
+- La contraseña del loggin para la base de datos, hay que cambiarla segun el usuario, esto se hace dentro del archivo ".env"
+
+- La prueba utilizada en Postman de ejemplo:
+
+```
+{
+    "firstName": "Claudio",
+    "lastName": "Toledo",
+    "username": "papayons",
+    "email": "papayons@gmail.com",
+    "password": "papayons",
+    "rut": "23324759-6",
+    "regionId": 1,
+    "comunaId": 3
+}
+```
+
+- El codigo de la base de datos esta dentro del archivo "codigo_tablas_lirart.sql", dentro de las tablas se inicializan regiones y comunas respectivamente.
+
