@@ -1,4 +1,3 @@
-// src/app/inicio/inicio-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioPage } from './inicio.page';

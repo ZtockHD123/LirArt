@@ -29,7 +29,6 @@ export class InicioPage implements OnInit {
       res => {
         console.log('Login exitoso!', res);
         alert('¡Inicio de sesión exitoso!');
-        // Navega al menú principal
         this.router.navigateByUrl('/menu');
       },
       err => {

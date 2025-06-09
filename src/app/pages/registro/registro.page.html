@@ -17,7 +17,6 @@
           <h3 class="form-title">Únete ahora!</h3>
           <p class="instruction-text">Ingresa tus datos para crear la cuenta</p>
 
-          <!-- INICIO DEL CAMBIO IMPORTANTE: Agrega la etiqueta <form> con [formGroup] -->
           <form [formGroup]="registerForm" (ngSubmit)="crearCuenta()">
             <ion-list lines="none">
 
@@ -46,14 +45,14 @@
                 <ion-col size="12" size-sm="6">
                   <ion-label class="input-label">Rut</ion-label>
                   <ion-item class="input-item">
-                    <ion-input type="text" formControlName="rut" placeholder="5.126.663-3" required></ion-input>
+                    <ion-input type="text" formControlName="rut" placeholder="1234567-8" required></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
 
               <ion-label class="input-label">Correo Electrónico</ion-label>
               <ion-item class="input-item">
-                <ion-input type="email" formControlName="correo" required></ion-input>
+                <ion-input type="email" formControlName="correo" placeholder="tucorreo@gmail.com" required></ion-input>
               </ion-item>
 
               <ion-row>
@@ -77,12 +76,12 @@
 
               <ion-label class="input-label">Contraseña</ion-label>
               <ion-item class="input-item">
-                <ion-input type="password" formControlName="contrasena" required></ion-input>
+                <ion-input type="password" formControlName="contrasena" placeholder="Contraseña" required></ion-input>
               </ion-item>
 
               <ion-label class="input-label">Confirmar Contraseña</ion-label>
               <ion-item class="input-item">
-                <ion-input type="password" formControlName="confirmarContrasena" required></ion-input>
+                <ion-input type="password" formControlName="confirmarContrasena" placeholder="Contraseña" required></ion-input>
               </ion-item>
 
               <ion-item class="checkbox-item">
@@ -91,12 +90,10 @@
               </ion-item>
 
             </ion-list>
-            <!-- El botón de submit DEBE estar dentro del form si quieres usar (ngSubmit) -->
-            <ion-button expand="block" class="button" type="submit"> <!-- CAMBIO: type="submit" -->
+            <ion-button expand="block" class="button" type="submit">
               Crear Cuenta
             </ion-button>
           </form>
-          <!-- FIN DEL CAMBIO IMPORTANTE -->
 
           <div class="login-link-container">
             ¿Ya tienes una cuenta creada?

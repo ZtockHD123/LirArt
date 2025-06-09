@@ -8,17 +8,14 @@ const token = authHeader && authHeader.split(' ')[1];
     return res.status(401).json({ message: 'Acceso denegado. No se proporcionó token.' });
     }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => { // Renombrado 'user' a 'decodedToken' para mayor claridad
+  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
     if (err) {
-      return res.status(403).json({ message: 'Token no válido o expirado.' }); // Mensaje más descriptivo
+      return res.status(403).json({ message: 'Token no válido o expirado.' });
     }
 
- // CAMBIO CLAVE: Asignar user_id del token a req.user.id
- // y el rol del token a req.user.role
- // Asegúrate de que el payload del token en el login incluya 'id' y 'role'
     req.user = {
-        id: decodedToken.id, // El 'id' en el token debería ser el 'user_id' de la BD
-        role: decodedToken.role // El 'role' en el token
+        id: decodedToken.id,
+        role: decodedToken.role 
     }; 
 
     next();

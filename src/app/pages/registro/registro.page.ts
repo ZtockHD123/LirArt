@@ -24,7 +24,7 @@
 
       ngOnInit() {
         this.initializeForm();
-        this.loadExampleData(); // Cargamos los datos de ejemplo con IDs corregidos
+        this.loadExampleData();
 
         this.registerForm?.get('region')?.valueChanges.subscribe(selectedRegionId => {
           const comunaControl = this.registerForm.get('comuna');
@@ -93,15 +93,13 @@
 
 
       crearCuenta() {
-        // Marca todos los controles como 'touched' para que Angular recalcule el estado de la validación
         this.registerForm.markAllAsTouched();
 
-        // --- INICIO DE LA SECCIÓN DE DEPURACIÓN ---
+        // --- DEPURACIÓN ---
         console.log('--- Estado del Formulario al intentar crear cuenta ---');
         console.log('Formulario válido?', this.registerForm.valid);
         console.log('Errores a nivel de FormGroup (ej. mustMatch):', this.registerForm.errors);
 
-        // Itera sobre cada control para ver sus errores individuales
         Object.keys(this.registerForm.controls).forEach(key => {
             const control = this.registerForm.get(key);
             if (control?.invalid) {
@@ -111,10 +109,29 @@
                 console.log(`Control '${key}' es VÁLIDO. Valor:`, control?.value);
             }
         });
-        console.log('--- Fin de la Depuración ---');
-        // --- FIN DE LA SECCIÓN DE DEPURACIÓN ---
+        console.log('--- Fin Depuración ---');
+        // --- DEPURACIÓN ---
 
-
+        if (this.registerForm.get('contrasena')?.value.length < 6) {
+          alert('La contraseña debe tener al menos 6 caracteres.');
+          return;
+        } 
+        if (this.registerForm.get('contrasena')?.value !== this.registerForm.get('confirmarContrasena')?.value) {
+          alert('Las contraseñas no coinciden.');
+          return;
+        }
+        if (!this.registerForm.get('aceptaTerminos')?.value) {
+          alert('Debes aceptar los términos y condiciones para continuar.');
+          return;
+        }
+        if (this.registerForm.get('rut')?.value.length < 9 || !this.registerForm.get('rut')?.value.includes('-') || !/^\d{7,8}-[0-9Kk]$/.test(this.registerForm.get('rut')?.value)) {
+          alert('El RUT debe tener al menos 8 caracteres, incluir un guion y seguir el formato correcto (ej. 1234567-8).');
+          return;
+        }
+        if (this.registerForm.get('correo')?.value.length < 5 || !this.registerForm.get('correo')?.value.includes('@')) {
+          alert('El correo electrónico debe tener al menos 5 caracteres y contener un "@" válido.');
+          return;
+        }
         if (this.registerForm.invalid) {
           alert('Por favor, completa todos los campos requeridos correctamente.');
           return;

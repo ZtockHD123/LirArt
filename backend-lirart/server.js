@@ -47,7 +47,6 @@ app.post('/api/auth/register', async (req, res) => {
             rut,
             regionId,
             comunaId
-            // No se añade el valor para 'role' aquí, ya que la BD usará el DEFAULT
         ];
         const result = await db.query(query, values);
         res.status(201).json({ message: 'Usuario registrado exitosamente', user: result.rows[0] });
@@ -98,10 +97,6 @@ app.post('/api/auth/login', async (req, res) => {
         });
     }
 });
-
-// Este es el middleware de autenticación, no debe ser declarado dos veces en server.js
-// La importación al inicio del archivo es suficiente.
-// function verificarToken(req, res, next) { ... }
 
 // --- ENDPOINTS DE POSTS (CRUD) ---
 
