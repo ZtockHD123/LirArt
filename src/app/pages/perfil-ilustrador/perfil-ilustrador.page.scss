@@ -11,13 +11,13 @@ $side-card-content-max-height: 250px;
 }
 .profile-avatar {
   width: $avatar-size-desktop; height: $avatar-size-desktop; position: absolute;
-  bottom: -($avatar-size-desktop / 2); left: 50%; transform: translateX(-50%);
+  bottom: calc($avatar-size-desktop / 2); left: 50%; transform: translateX(-50%);
   border: 4px solid var(--ion-color-light, #fff); border-radius: 50%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); background-color: var(--ion-color-light);
   img { border-radius: 50%; display: block; }
 }
 .artist-name-container {
-  text-align: center; margin-top: ($avatar-size-desktop / 2) + 10px;
+  text-align: center; margin-top: calc(($avatar-size-desktop / 2) + 10px);
   margin-bottom: 15px; padding: 0 var(--ion-padding, 16px);
   h2 { font-weight: bold; margin: 0; color: var(--ion-text-color); }
 }
