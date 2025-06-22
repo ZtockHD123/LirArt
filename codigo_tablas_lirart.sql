@@ -110,6 +110,7 @@ CREATE TABLE CartItems (
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE,
     UNIQUE (user_id, product_id)
+);
 
 CREATE TABLE Orders (
     order_id SERIAL PRIMARY KEY, -- En MySQL: INT AUTO_INCREMENT PRIMARY KEY
