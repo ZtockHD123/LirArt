@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 interface CartItem {
   id: number;
@@ -10,6 +12,7 @@ interface CartItem {
   shippingInfo: string;
   selected: boolean;
   vendorType: 'international' | 'national';
+  quantity: number;
 }
 
 @Component({
@@ -26,7 +29,7 @@ export class CarritoPage implements OnInit {
   shippingCost: number | string = 0;
   total: number = 0;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
     this.loadSampleData();
@@ -37,14 +40,26 @@ export class CarritoPage implements OnInit {
     this.cartItems = [
       {
         id: 1,
-        name: 'El Hilo Rojo Libro Cuento Infantil y Amor',
-        details: 'Rojo, Libro Amarillo Infantil',
-        price: 9990990,
-        imageUrl: 'assets/img/40.jpg',
+        name: 'El Hilo Rojo Libro',
+        details: 'Un libro que te conmoverá',
+        price: 9990,
+        imageUrl: 'assets/img/ventas6.png',
         shippingInfo: 'Envío gratis',
         selected: false,
-        vendorType: 'international'
+        vendorType: 'international',
+        quantity: 1
       },
+      {
+        id: 2,
+        name: 'Set de Stickers de Minecraft',
+        details: 'Paquete de 15 Stickers de Minecraft',
+        price: 3000,
+        imageUrl: 'assets/img/ventas7.png',
+        shippingInfo: 'Envío Estándar',
+        selected: false,
+        vendorType: 'national',
+        quantity: 1
+      }
     ];
     this.updateSelectAllState();
   }
@@ -52,19 +67,18 @@ export class CarritoPage implements OnInit {
   calculateSummary() {
     this.subtotal = this.cartItems
       .filter(item => item.selected)
-      .reduce((sum, item) => sum + item.price, 0);
+      .reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     let numericShipping = 0;
-
     if (this.subtotal > 0) {
        numericShipping = 0;
     } else {
        numericShipping = 0;
     }
     this.shippingCost = (numericShipping === 0 && this.subtotal > 0) ? 'Gratis' : numericShipping;
-
     this.total = this.subtotal + numericShipping;
   }
+
   // --- Manejo de Selección ---
   toggleSelectAll() {
     this.cartItems.forEach(item => item.selected = this.selectAll);
@@ -87,13 +101,34 @@ export class CarritoPage implements OnInit {
     this.calculateSummary();
   }
 
-  proceedToCheckout() {
+  async proceedToCheckout() {
     console.log('Continuando al pago...');
-    const itemsToCheckout = this.cartItems.filter(item => item.selected);
-    if (itemsToCheckout.length > 0) {
-      alert(`Procediendo al pago con ${itemsToCheckout.length} artículo(s) por un total de ${this.total}`);
-    } else {
+    const selectedItems = this.cartItems.filter(item => item.selected);
+
+    if (selectedItems.length === 0) {
       alert('Por favor, selecciona al menos un artículo para continuar.');
+      return;
+    }
+
+    try {
+      const paymentItems = selectedItems.map(item => ({
+        title: item.name,
+        unit_price: Number(item.price),
+        quantity: Number(item.quantity)
+      }));
+
+      const backendUrl = environment.backendUrl;
+      const response: any = await this.http.post(`${backendUrl}/api/create-preference`, { items: paymentItems }).toPromise();
+
+      if (response && response.init_point) {
+        window.location.href = response.init_point;
+      } else {
+        console.error('No se recibió init_point del backend para iniciar el pago.');
+        alert('Error al iniciar el pago. Por favor, inténtalo de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error al procesar el pago:', error);
+      alert('Hubo un error al procesar tu pago. Por favor, inténtalo de nuevo más tarde.');
     }
   }
 
