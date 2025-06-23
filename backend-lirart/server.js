@@ -6,13 +6,87 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
 const verificarToken = require('./authMiddleware');
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// --- CONFIGURACIÓN DE CORS ---
+const corsOptions = {
+    origin: 'http://localhost:8100',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+
 const PORT = process.env.PORT || 3000;
 
-// --- ENDPOINTS DE AUTENTICACIÓN ---
+// --- CONFIGURACIÓN DE MERCADO PAGO ---
+const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN;
+if (!accessToken) {
+    console.error('ERROR: MERCADO_PAGO_ACCESS_TOKEN no está definido en el archivo .env');
+}
+
+const client = new MercadoPagoConfig({ accessToken: accessToken });
+const preferenceInstance = new Preference(client);
+
+// --- ENDPOINT PARA CREAR PREFERENCIA DE PAGO (CHECKOUT PRO) ---
+app.post('/api/create-preference', async (req, res) => {
+    try {
+        const { items } = req.body;
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            console.error('Error 400: Se espera un array de ítems válido en el cuerpo de la solicitud.');
+            return res.status(400).json({ message: 'Se espera un array de ítems válido en el cuerpo de la solicitud.' });
+        }
+
+        for (const item of items) {
+            if (!item.title || typeof item.unit_price !== 'number' || typeof item.quantity !== 'number' || item.quantity <= 0) {
+                console.error('Error 400: Cada ítem debe tener title (string), unit_price (number) y quantity (number > 0).', item);
+                return res.status(400).json({ message: 'Cada ítem debe tener title (string), unit_price (number) y quantity (number > 0).' });
+            }
+        }
+
+        let preferenceConfig = {
+            items: items.map(item => ({
+                title: item.title,
+                unit_price: Number(item.unit_price),
+                quantity: Number(item.quantity),
+            })),
+            back_urls: {
+                success: 'http://localhost:8100/pago-exitoso',
+                failure: 'http://localhost:8100/pago-fallido',
+                pending: 'http://localhost:8100/pago-pendiente',
+            },
+        };
+
+        const response = await preferenceInstance.create({ body: preferenceConfig });
+
+        res.status(200).json({ init_point: response.sandbox_init_point});
+
+    } catch (error) {
+        console.error('Error detallado al crear la preferencia de pago:', error.message);
+        if (error.cause && error.cause.response && error.cause.response.data) {
+            console.error('Detalles del error de Mercado Pago:', error.cause.response.data);
+            return res.status(500).json({ 
+                message: 'Error al procesar el pago con Mercado Pago.', 
+                details: error.cause.response.data 
+            });
+        }
+        res.status(500).json({ message: 'Error interno del servidor al crear la preferencia de pago.', error: error.message });
+    }
+});
+
+// --- WEBHOOK PARA NOTIFICACIONES DE MERCADO PAGO ---
+app.post('/webhook-mp', (req, res) => {
+    console.log('Webhook de Mercado Pago recibido:', req.query);
+    console.log('Datos del webhook:', req.body);
+    res.status(200).send('OK');
+});
+
+
+// --- ENDPOINTS DE AUTENTICACIÓN Y POSTS ---
 
 app.post('/api/auth/register', async (req, res) => {
     const { firstName, lastName, username, rut, email, regionId, comunaId, password } = req.body;
@@ -33,7 +107,6 @@ app.post('/api/auth/register', async (req, res) => {
                 rut,
                 region_id,
                 comuna_id
-                -- REMOVIDO: 'role' aquí, ya que tiene un valor por defecto en la BD
             )
             VALUES($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING user_id, username, email, first_name, last_name, role;
@@ -98,8 +171,6 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
-// --- ENDPOINTS DE POSTS (CRUD) ---
-
 app.post('/api/posts', verificarToken, async (req, res) => {
     const { description, image_url } = req.body;
     const user_id = req.user.id; 
@@ -114,7 +185,8 @@ app.post('/api/posts', verificarToken, async (req, res) => {
             VALUES($1, $2, $3)
             RETURNING *;
         `;
-        const result = await db.query(query, [user_id, description, image_url]);
+        const values = [user_id, description, image_url];
+        const result = await db.query(query, values);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error('Error al crear la publicación:', error);
