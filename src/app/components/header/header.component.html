@@ -1,30 +1,34 @@
-<ion-header class="custom-header">
-  <ion-toolbar class="custom-toolbar">
+<ion-header>
+  <ion-toolbar>
 
-    <ion-buttons slot="start" class="logo-container ion-hide-sm-down">
-      <a href="/"> <img src="assets/img/LogoLirartOscuro.png" alt="Logo LirArt" class="header-logo-img">
-      </a>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/menu" aria-label="Volver al menú principal">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+      <div class="logo-container">
+        <img src="assets/img/LogoLirartOscuro.png" alt="LirArt Logo" class="header-logo">
+      </div>
     </ion-buttons>
 
-    <div class="center-content">
-      <ion-button fill="clear" class="home-button" (click)="goToHome()">
-        <ion-icon slot="icon-only" name="home" color="light"></ion-icon>
-      </ion-button>
-
-      <ion-searchbar placeholder="Buscar..." class="header-searchbar" (ionInput)="onSearchChange($event)"></ion-searchbar>
+    <div class="search-container">
+      <ion-searchbar
+        placeholder="Buscar..."
+        [value]="searchQuery"
+        (ionInput)="onSearch($event)"
+        (ionBlur)="onBlur()">
+      </ion-searchbar>
     </div>
 
-    <ion-buttons slot="end" class="end-buttons">
-      <ion-button fill="clear" (click)="goToCart()">
-        <ion-icon slot="icon-only" name="cart-outline" color="light"></ion-icon>
-        </ion-button>
-      <ion-button class="profile-button" (click)="goToProfile()">
-        <ion-avatar>
-          <img [src]="userProfileImageUrl || 'assets/img/pfp3.jpg'" alt="User Profile">
+    <ion-buttons slot="end">
+      <ion-button routerLink="/carrito">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/perfil-cliente">
+        <ion-avatar class="header-avatar">
+          <img src="assets/img/pfp3.jpg" />
         </ion-avatar>
       </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
-  <div class="header-background-image"></div>
 </ion-header>

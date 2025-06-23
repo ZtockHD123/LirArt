@@ -1,0 +1,21 @@
+.search-results-container {
+  position: fixed; // Se posiciona con respecto a la ventana del navegador
+  top: 56px; // Ajusta esta altura a la de tu header
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; // Centra el contenido
+  z-index: 1000; // Se asegura de que esté por encima de todo
+}
+
+ion-list {
+  width: 100%;
+  max-width: 584px; // Ancho similar al de la barra de búsqueda
+  background: var(--ion-color-light, #fff);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--ion-color-step-150, #e0e0e0);
+  max-height: 250px;
+  overflow-y: auto;
+  padding: 0;
+}
