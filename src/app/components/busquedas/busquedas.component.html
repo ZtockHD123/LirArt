@@ -1,0 +1,10 @@
+<div class="search-results-container" *ngIf="show$ | async">
+  <ion-list *ngIf="(results$ | async) as results">
+    <ion-item *ngFor="let user of results" (mousedown)="goToProfile(user)" button>
+      <ion-avatar slot="start">
+        <img [src]="user.avatar" />
+      </ion-avatar>
+      <ion-label>{{ user.username }}</ion-label>
+    </ion-item>
+  </ion-list>
+</div>

@@ -31,6 +31,11 @@ const routes: Routes = [
     path: 'perfil-cliente',
     loadChildren: () => import('./pages/perfil-cliente/perfil-cliente.module').then( m => m.PerfilClientePageModule)
   },
+  // --- Ruta Añadida ---
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./pages/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
 ];
 
 @NgModule({

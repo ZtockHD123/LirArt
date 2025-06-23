@@ -1,13 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil-cliente</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil-cliente</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="banner-container" [style.backgroundImage]="'url(' + user.bannerUrl + ')'">
+    <ion-avatar class="profile-avatar">
+      <img [src]="user.avatarUrl" alt="Foto de perfil">
+    </ion-avatar>
+  </div>
+
+  <div class="profile-container">
+    <div class="info-container">
+      <h2 class="username">{{ user.username }}</h2>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <ion-icon name="heart-outline"></ion-icon>
+          <ion-label>Like</ion-label>
+        </div>
+        <div class="stat-item" *ngIf="user.isVerified">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <ion-label>Verificado</ion-label>
+        </div>
+        <div class="stat-item rating">
+          <ion-label>Calificación</ion-label>
+          <ion-icon *ngFor="let star of stars" name="star"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-grid">
+        <div *ngFor="let action of actionItems" class="action-item" (click)="onActionClick(action.label)">
+            <ion-icon [name]="action.icon" color="dark"></ion-icon>
+            <ion-label>{{ action.label }}</ion-label>
+        </div>
+    </div>
+    
+    <div class="main-buttons">
+      <ion-button fill="solid" class="edit-button" (click)="editProfile()">Editar Perfil</ion-button>
+      <ion-button fill="outline" class="share-button" (click)="shareProfile()">Compartir Perfil</ion-button>
+    </div>
+    
+    <div class="saved-section">
+      <ion-button class="saved-tab" fill="solid">
+        <ion-icon name="bookmark" slot="start"></ion-icon>
+        Guardados
+      </ion-button>
+
+      <ion-grid class="saved-items-grid">
+        <ion-row>
+          <ion-col size="6" size-md="4" size-lg="3" *ngFor="let item of savedItems">
+            <ion-card class="saved-item-card">
+              <img [src]="item.imageUrl" />
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
 </ion-content>

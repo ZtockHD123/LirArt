@@ -1,5 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { SearchService } from '../../services/search.service'; // <-- Importa el nuevo servicio
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -9,32 +13,44 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() userProfileImageUrl: string | null = null;
-  @Input() cartItemCount: number = 0;
+  searchQuery: string = '';
+  private searchTerms = new Subject<string>();
 
-  constructor(private router: Router) { }
+  // Inyecta SearchService aquí
+  constructor(
+    private userService: UserService,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit() {
-
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.userService.searchUsers(term)),
+    ).subscribe(users => {
+      // En lugar de guardar los resultados aquí, se los pasamos al servicio
+      this.searchService.setResults(users);
+      if (this.searchQuery.length > 0 && users.length > 0) {
+        this.searchService.show();
+      } else {
+        this.searchService.hide();
+      }
+    });
   }
 
-  goToHome() {
-    console.log('Ir a Home');
-    this.router.navigateByUrl('/menu');
+  onSearch(event: any) {
+    const term = event.target.value;
+    this.searchQuery = term;
+    this.searchTerms.next(term);
+    if (!term.trim()) {
+      this.searchService.hide();
+    }
   }
 
-  onSearchChange(event: any) {
-    const searchTerm = event.detail.value;
-    console.log('Término de búsqueda:', searchTerm);
-  }
-
-  goToCart() {
-    console.log('Ir al Carrito');
-    this.router.navigateByUrl('/carrito');
-  }
-
-  goToProfile() {
-    console.log('Ir al Perfil');
-    this.router.navigateByUrl('/perfil-cliente');
+  onBlur() {
+    // Usamos un timeout para dar tiempo a hacer clic en un resultado
+    setTimeout(() => {
+      this.searchService.hide();
+    }, 200);
   }
 }
