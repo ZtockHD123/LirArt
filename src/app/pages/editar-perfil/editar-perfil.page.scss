@@ -1,0 +1,37 @@
+ion-item {
+  // Estilos para el fondo y borde de la casilla (inspirado en registro.page.scss)
+  --border-width: 1px;
+  --inner-border-width: 0;
+  --background: var(--ion-color-light, #333); // Intenta usar la variable de color clara de Ionic, o un gris oscuro por defecto
+  --border-color: var(--ion-color-light, #777); // Color del borde
+  --border-radius: 8px; // Bordes redondeados
+  --padding-start: 0;
+  --inner-padding-start: 10px;
+  --inner-padding-end: 10px;
+  margin-bottom: 20px; // Espaciado inferior consistente
+
+  // Colores del texto para que sea visible sobre el fondo oscuro
+  --color: #ffffff; /* Color de texto para ion-label y texto principal dentro de ion-item */
+
+  ion-input {
+    --color: #ffffff; /* Asegura que el texto que el usuario escribe sea blanco */
+  }
+
+  ion-select {
+    --color: #ffffff; /* Asegura que el texto seleccionado y el placeholder sean blancos */
+  }
+
+  // Estilos para el placeholder (texto de ejemplo)
+  &::placeholder {
+    color: #cccccc; /* Un gris claro para el placeholder */
+    opacity: 1; /* Asegura que el placeholder no sea transparente */
+  }
+  &::-moz-placeholder { /* Para Firefox */
+    color: #cccccc;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder { /* Para Internet Explorer/Edge */
+    color: #cccccc;
+    opacity: 1;
+  }
+}

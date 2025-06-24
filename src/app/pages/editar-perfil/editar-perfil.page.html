@@ -1,0 +1,103 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">Configuración de la Cuenta</ion-card-title>
+            <ion-card-subtitle class="ion-text-center">Actualiza tus datos personales y ajustes.</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+              <ion-list lines="none">
+                <ion-item>
+                  <ion-label position="stacked">Nombre</ion-label>
+                  <ion-input formControlName="firstName" type="text"></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('firstName')?.errors?.['required']">El nombre es requerido.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Apellido</ion-label>
+                  <ion-input formControlName="lastName" type="text"></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('lastName')?.errors?.['required']">El apellido es requerido.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Nombre de Usuario</ion-label>
+                  <ion-input formControlName="username" type="text"></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('username')?.invalid && (profileForm.get('username')?.dirty || profileForm.get('username')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('username')?.errors?.['required']">El nombre de usuario es requerido.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Correo Electrónico</ion-label>
+                  <ion-input formControlName="email" type="email"></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('email')?.errors?.['required']">El correo electrónico es requerido.</ion-text>
+                  <ion-text *ngIf="profileForm.get('email')?.errors?.['email']">Formato de correo electrónico inválido.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">RUT</ion-label>
+                  <ion-input formControlName="rut" type="text" readonly></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('rut')?.invalid && (profileForm.get('rut')?.dirty || profileForm.get('rut')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('rut')?.errors?.['required']">El RUT es requerido.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Región</ion-label>
+                  <ion-select formControlName="regionId" placeholder="Selecciona una región" interface="popover">
+                    <ion-select-option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <div *ngIf="profileForm.get('regionId')?.invalid && (profileForm.get('regionId')?.dirty || profileForm.get('regionId')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('regionId')?.errors?.['required']">La región es requerida.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Comuna</ion-label>
+                  <ion-select formControlName="comunaId" placeholder="Selecciona una comuna" interface="popover" [disabled]="profileForm.get('comunaId')?.disabled ?? true">
+                    <ion-select-option *ngFor="let comuna of comunasFiltradas" [value]="comuna.id">{{ comuna.nombre }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                 <div *ngIf="profileForm.get('comunaId')?.invalid && (profileForm.get('comunaId')?.dirty || profileForm.get('comunaId')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('comunaId')?.errors?.['required']">La comuna es requerida.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Nueva Contraseña</ion-label>
+                  <ion-input formControlName="newPassword" type="password"></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('newPassword')?.invalid && (profileForm.get('newPassword')?.dirty || profileForm.get('newPassword')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('newPassword')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</ion-text>
+                </div>
+
+                <ion-item>
+                  <ion-label position="stacked">Confirmar Contraseña</ion-label>
+                  <ion-input formControlName="confirmPassword" type="password"></ion-input>
+                </ion-item>
+                <div *ngIf="profileForm.get('confirmPassword')?.invalid && (profileForm.get('confirmPassword')?.dirty || profileForm.get('confirmPassword')?.touched)" class="ion-padding-start ion-text-danger">
+                  <ion-text *ngIf="profileForm.get('confirmPassword')?.errors?.['mustMatch']">Las contraseñas no coinciden.</ion-text>
+                </div>
+                <ion-button expand="block" type="submit" [disabled]="profileForm.invalid">Guardar Cambios</ion-button>
+              </ion-list>
+            </form>
+
+            <ion-button expand="block" fill="outline" color="dark" (click)="goToMenu()" class="ion-margin-top">Volver al Menú Principal</ion-button>
+            <ion-button expand="block" fill="outline" color="danger" (click)="confirmLogout()" class="ion-margin-top">Cerrar Sesión</ion-button>
+            <ion-button expand="block" fill="solid" color="danger" (click)="confirmDeleteAccount()" class="ion-margin-top">Eliminar Cuenta</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
