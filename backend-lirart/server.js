@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const db = require('./db');
 const verificarToken = require('./authMiddleware');
 const { MercadoPagoConfig, Preference } = require('mercadopago');
+const fetch = require('node-fetch');
 
 const app = express();
 app.use(express.json());
@@ -83,6 +84,10 @@ app.post('/webhook-mp', (req, res) => {
 
 app.post('/api/auth/register', async (req, res) => {
     const { firstName, lastName, username, rut, email, regionId, comunaId, password } = req.body;
+
+    console.log('Datos de registro recibidos en el backend:');
+    console.log('Region ID:', regionId);
+    console.log('Comuna ID:', comunaId);
 
     if (!firstName || !lastName || !username || !rut || !email || regionId === undefined || comunaId === undefined || !password) {
         return res.status(400).json({ message: 'Todos los campos requeridos deben ser proporcionados para el registro.' });
@@ -315,6 +320,36 @@ app.delete('/api/user/profile', verificarToken, async (req, res) => {
     } catch (error) {
         console.error('Error al eliminar la cuenta del usuario:', error);
         res.status(500).json({ message: 'Error interno del servidor al eliminar la cuenta.' });
+    }
+});
+
+// NUEVOS ENDPOINTS PARA PROXY DE REGIONES Y COMUNAS
+app.get('/api/proxy/regiones', async (req, res) => {
+    try {
+        const response = await fetch('https://apis.digital.gob.cl/dpa/regiones');
+        if (!response.ok) {
+            throw new Error(`Error al obtener regiones: ${response.statusText}`);
+        }
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error en el proxy de regiones:', error);
+        res.status(500).json({ message: 'Error al obtener regiones desde la API externa.' });
+    }
+});
+
+app.get('/api/proxy/regiones/:codigo/comunas', async (req, res) => {
+    const { codigo } = req.params;
+    try {
+        const response = await fetch(`https://apis.digital.gob.cl/dpa/regiones/${codigo}/comunas`);
+        if (!response.ok) {
+            throw new Error(`Error al obtener comunas para la región ${codigo}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(`Error en el proxy de comunas para la región ${codigo}:`, error);
+        res.status(500).json({ message: 'Error al obtener comunas desde la API externa.' });
     }
 });
 

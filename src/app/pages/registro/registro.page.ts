@@ -1,177 +1,228 @@
-    import { Component, OnInit } from '@angular/core';
-    import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-    import { Router } from '@angular/router';
-    import { AuthService } from '../../services/auth.service';
+// Proyecto/src/app/pages/registro/registro.page.ts
 
-    @Component({
-      selector: 'app-registro',
-      templateUrl: 'registro.page.html',
-      styleUrls: ['registro.page.scss'],
-      standalone: false
-    })
-    export class RegistroPage implements OnInit {
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CommonService } from '../../services/common.service';
+import { AlertController, LoadingController } from '@ionic/angular'; // Importar AlertController y LoadingController
 
-      registerForm!: FormGroup;
-      regiones: any[] = [];
-      comunas: any[] = [];
-      comunasFiltradas: any[] = [];
+@Component({
+  selector: 'app-registro',
+  templateUrl: 'registro.page.html',
+  styleUrls: ['registro.page.scss'],
+  standalone: false
+})
+export class RegistroPage implements OnInit {
 
-      constructor(
-        private fb: FormBuilder,
-        private router: Router,
-        private authService: AuthService
-      ) {}
+  registerForm!: FormGroup;
+  regiones: any[] = [];
+  comunas: any[] = []; // Mantén esta variable para el bind del HTML si es necesario
+  comunasFiltradas: any[] = []; // Esta es la que se usará para el select de comunas
 
-      ngOnInit() {
-        this.initializeForm();
-        this.loadExampleData();
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private commonService: CommonService,
+    private alertController: AlertController, // Inyectar AlertController
+    private loadingController: LoadingController // Inyectar LoadingController
+  ) {}
 
-        this.registerForm?.get('region')?.valueChanges.subscribe(selectedRegionId => {
-          const comunaControl = this.registerForm.get('comuna');
-          if (comunaControl) {
-            if (selectedRegionId) {
-              this.comunasFiltradas = this.comunas.filter(c => c.regionId === Number(selectedRegionId));
-              comunaControl.enable();
-            } else {
-              this.comunasFiltradas = [];
-              comunaControl.disable();
-            }
+  ngOnInit() {
+    this.initializeForm();
+    this.loadLocationData(); // Carga datos de ubicación desde la API
+
+    // Suscripción a cambios en la región para cargar comunas
+    this.registerForm?.get('region')?.valueChanges.subscribe(async selectedRegionCode => {
+      const comunaControl = this.registerForm.get('comuna');
+      if (comunaControl) {
+        if (selectedRegionCode) {
+          try {
+            // ¡CORRECCIÓN AQUÍ! Mapear las comunas para tener 'id' y 'nombre'
+            const comunasData = await this.commonService.getComunasByRegion(selectedRegionCode);
+            this.comunasFiltradas = comunasData.map((c: any) => ({ id: c.codigo, nombre: c.nombre }));
+            comunaControl.enable();
+          } catch (error) {
+            console.error('Error al cargar comunas en valueChanges:', error);
+            this.presentAlert('Error', 'No se pudieron cargar las comunas para la región seleccionada.');
+            this.comunasFiltradas = [];
             comunaControl.setValue(null);
+            comunaControl.disable();
           }
-        });
+        } else {
+          this.comunasFiltradas = [];
+          comunaControl.disable();
+        }
+        comunaControl.setValue(null); // Resetea la comuna seleccionada al cambiar la región
+      }
+    });
+  }
+
+  initializeForm() {
+    this.registerForm = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      nombreUsuario: ['', Validators.required],
+      rut: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      region: [null, Validators.required],
+      comuna: [{ value: null, disabled: true }, Validators.required],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      confirmarContrasena: ['', Validators.required],
+      aceptaTerminos: [false, Validators.requiredTrue]
+    }, {
+      validator: this.mustMatch('contrasena', 'confirmarContrasena')
+    });
+  }
+
+  mustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+        return;
       }
 
-      initializeForm() {
-        this.registerForm = this.fb.group({
-          nombre: ['', Validators.required],
-          apellido: ['', Validators.required],
-          nombreUsuario: ['', Validators.required],
-          rut: ['', Validators.required],
-          correo: ['', [Validators.required, Validators.email]],
-          region: [null, Validators.required],
-          comuna: [{ value: null, disabled: true }, Validators.required],
-          contrasena: ['', [Validators.required, Validators.minLength(6)]],
-          confirmarContrasena: ['', Validators.required],
-          aceptaTerminos: [false, Validators.requiredTrue]
-        }, {
-          validator: this.mustMatch('contrasena', 'confirmarContrasena')
-        });
-      }
-
-      mustMatch(controlName: string, matchingControlName: string) {
-        return (formGroup: FormGroup) => {
-          const control = formGroup.controls[controlName];
-          const matchingControl = formGroup.controls[matchingControlName];
-
-          if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
-            return;
-          }
-
-          if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-          } else {
-            matchingControl.setErrors(null);
-          }
-        }
-      }
-
-      loadExampleData() {
-        this.regiones = [
-          { id: 1, nombre: 'Valparaíso' },
-          { id: 2, nombre: 'Metropolitana' },
-          { id: 3, nombre: 'Biobío' }
-        ];
-        this.comunas = [
-          { id: 1, regionId: 1, nombre: 'Viña del Mar' },
-          { id: 2, regionId: 1, nombre: 'Valparaíso' },
-          { id: 3, regionId: 1, nombre: 'Casablanca' },
-          { id: 4, regionId: 2, nombre: 'Santiago' },
-          { id: 5, regionId: 2, nombre: 'Providencia' },
-          { id: 6, regionId: 3, nombre: 'Concepción' }
-        ];
-      }
-
-
-      crearCuenta() {
-        this.registerForm.markAllAsTouched();
-
-        // --- DEPURACIÓN ---
-        console.log('--- Estado del Formulario al intentar crear cuenta ---');
-        console.log('Formulario válido?', this.registerForm.valid);
-        console.log('Errores a nivel de FormGroup (ej. mustMatch):', this.registerForm.errors);
-
-        Object.keys(this.registerForm.controls).forEach(key => {
-            const control = this.registerForm.get(key);
-            if (control?.invalid) {
-                console.log(`Control '${key}' es INVÁLIDO. Errores:`, control.errors);
-                console.log(`Valor de '${key}':`, control.value);
-            } else {
-                console.log(`Control '${key}' es VÁLIDO. Valor:`, control?.value);
-            }
-        });
-        console.log('--- Fin Depuración ---');
-        // --- DEPURACIÓN ---
-
-        if (this.registerForm.get('contrasena')?.value.length < 6) {
-          alert('La contraseña debe tener al menos 6 caracteres.');
-          return;
-        } 
-        if (this.registerForm.get('contrasena')?.value !== this.registerForm.get('confirmarContrasena')?.value) {
-          alert('Las contraseñas no coinciden.');
-          return;
-        }
-        if (!this.registerForm.get('aceptaTerminos')?.value) {
-          alert('Debes aceptar los términos y condiciones para continuar.');
-          return;
-        }
-        if (this.registerForm.get('rut')?.value.length < 9 || !this.registerForm.get('rut')?.value.includes('-') || !/^\d{7,8}-[0-9Kk]$/.test(this.registerForm.get('rut')?.value)) {
-          alert('El RUT debe tener al menos 8 caracteres, incluir un guion y seguir el formato correcto (ej. 1234567-8).');
-          return;
-        }
-        if (this.registerForm.get('correo')?.value.length < 5 || !this.registerForm.get('correo')?.value.includes('@')) {
-          alert('El correo electrónico debe tener al menos 5 caracteres y contener un "@" válido.');
-          return;
-        }
-        if (this.registerForm.invalid) {
-          alert('Por favor, completa todos los campos requeridos correctamente.');
-          return;
-        }
-
-        const formValue = this.registerForm.value;
-
-        const userData = {
-          firstName: formValue.nombre,
-          lastName: formValue.apellido,
-          username: formValue.nombreUsuario,
-          rut: formValue.rut,
-          email: formValue.correo,
-          regionId: formValue.region,
-          comunaId: formValue.comuna,
-          password: formValue.contrasena
-        };
-
-        console.log('Enviando datos de registro a la API:', userData);
-
-        this.authService.register(userData).subscribe({
-          next: (res) => {
-            console.log('Respuesta del registro:', res);
-            alert('¡Cuenta creada exitosamente! Ahora serás redirigido para iniciar sesión.');
-            this.router.navigateByUrl('/inicio');
-          },
-          error: (err) => {
-            console.error('Error en el registro:', err);
-            const errorMessage = err.error && err.error.message ? err.error.message : 'Ocurrió un error inesperado al crear la cuenta.';
-            alert(`Error al crear la cuenta: ${errorMessage}`);
-          }
-        });
-      }
-
-      goToLogin() {
-        this.router.navigateByUrl('/inicio');
-      }
-
-      verTerminos() {
-        console.log('Clic en "Términos y Condiciones" (Modo Diseño)');
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
       }
     }
-    
+  }
+
+  async loadLocationData() {
+    try {
+      // Mapea los datos de la API para que coincidan con la estructura esperada por el select
+      const regionesData = await this.commonService.getRegions();
+      this.regiones = regionesData.map((r: any) => ({ id: r.codigo, nombre: r.nombre }));
+    } catch (error) {
+      console.error('Error al cargar regiones:', error);
+      this.presentAlert('Error', 'No se pudieron cargar las regiones.');
+    }
+  }
+
+  // Este método onRegionChange es redundante si ya tienes la suscripción en ngOnInit
+  // Sin embargo, si lo usas en el HTML con (ionChange)="onRegionChange()", asegúrate de que esté correcto
+  // La lógica principal se maneja en el valueChanges.subscribe en ngOnInit.
+  // Si lo usas aquí, debería ser:
+  // onRegionChange() {
+  //   const selectedRegionCode = this.registerForm.get('region')?.value;
+  //   // La lógica de carga de comunas ya está en valueChanges.subscribe
+  //   // Solo asegúrate de que el control de comuna se resetee si la región cambia a nulo
+  //   if (!selectedRegionCode) {
+  //     this.registerForm.get('comuna')?.setValue(null);
+  //     this.registerForm.get('comuna')?.disable();
+  //     this.comunasFiltradas = [];
+  //   }
+  // }
+
+
+  async crearCuenta() {
+    this.registerForm.markAllAsTouched();
+
+    console.log('--- Estado del Formulario al intentar crear cuenta ---');
+    console.log('Formulario válido?', this.registerForm.valid);
+    console.log('Errores a nivel de FormGroup (ej. mustMatch):', this.registerForm.errors);
+
+    Object.keys(this.registerForm.controls).forEach(key => {
+        const control = this.registerForm.get(key);
+        if (control?.invalid) {
+            console.log(`Control '${key}' es INVÁLIDO. Errores:`, control.errors);
+            console.log(`Valor de '${key}':`, control.value);
+        } else {
+            console.log(`Control '${key}' es VÁLIDO. Valor:`, control?.value);
+        }
+    });
+    console.log('--- Fin Depuración del Formulario ---');
+
+
+    // Validaciones explícitas antes de enviar (algunas pueden ser manejadas por los validadores de FormGroup)
+    if (this.registerForm.get('contrasena')?.value.length < 6) {
+      this.presentAlert('Error de Contraseña', 'La contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
+    if (this.registerForm.get('contrasena')?.value !== this.registerForm.get('confirmarContrasena')?.value) {
+      this.presentAlert('Error de Contraseña', 'Las contraseñas no coinciden.');
+      return;
+    }
+    if (!this.registerForm.get('aceptaTerminos')?.value) {
+      this.presentAlert('Términos y Condiciones', 'Debes aceptar los términos y condiciones para continuar.');
+      return;
+    }
+    // Asegúrate que el formato del RUT sea validado adecuadamente con un validador personalizado si es necesario
+    // if (!/^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]$/.test(this.registerForm.get('rut')?.value)) {
+    //   this.presentAlert('RUT Inválido', 'El RUT debe seguir el formato correcto (ej. 12.345.678-9).');
+    //   return;
+    // }
+
+    if (this.registerForm.invalid) {
+      this.presentAlert('Formulario Inválido', 'Por favor, completa todos los campos requeridos correctamente.');
+      return;
+    }
+
+    const formValue = this.registerForm.value;
+
+    const userData = {
+      firstName: formValue.nombre,
+      lastName: formValue.apellido,
+      username: formValue.nombreUsuario,
+      rut: formValue.rut,
+      email: formValue.correo,
+      regionId: formValue.region, // Envía el CÓDIGO de la región
+      comunaId: formValue.comuna, // Envía el CÓDIGO de la comuna
+      password: formValue.contrasena,
+      // No veo un campo 'userRole' en tu formulario, si lo necesitas, asegúrate de agregarlo aquí
+      // userRole: 'cliente' // Por ejemplo, un rol por defecto
+    };
+
+    console.log('--- Enviando datos de registro a la API ---');
+    console.log('Payload a enviar:', userData); // NUEVO LOG CRÍTICO para ver el objeto antes de enviar
+
+    const loading = await this.loadingController.create({
+      message: 'Creando cuenta...',
+      duration: 0 // Duración infinita hasta que se llame a dismiss
+    });
+    await loading.present();
+
+    this.authService.register(userData).subscribe({
+      next: async (res) => {
+        await loading.dismiss();
+        console.log('Respuesta del registro:', res);
+        await this.presentAlert('¡Cuenta Creada!', 'Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.');
+        this.router.navigateByUrl('/inicio'); // Redirigir al login o a otra página
+      },
+      error: async (err) => {
+        await loading.dismiss();
+        console.error('Error en el registro:', err);
+        let errorMessage = 'Ocurrió un error inesperado al crear la cuenta.';
+        if (err.error && err.error.message) {
+          errorMessage = err.error.message;
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+        await this.presentAlert('Error de Registro', `Error: ${errorMessage}`);
+      }
+    });
+  }
+
+  goToLogin() {
+    this.router.navigateByUrl('/inicio');
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  verTerminos() {
+    console.log('Clic en "Términos y Condiciones" (Modo Diseño)');
+    // Aquí puedes abrir una modal, navegar a una página de términos, etc.
+  }
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CommonService } from '../../services/common.service'; // Importa CommonService
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -20,7 +21,8 @@ export class EditarPerfilPage implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private commonService: CommonService // Inyecta CommonService
   ) {}
 
   ngOnInit() {
@@ -28,8 +30,9 @@ export class EditarPerfilPage implements OnInit {
     this.loadLocationData();
     this.loadUserProfile();
 
-    this.profileForm.get('regionId')?.valueChanges.subscribe(selectedRegionId => {
-      this.filterComunas(selectedRegionId);
+    // Suscribirse a los cambios de la región para actualizar las comunas filtradas
+    this.profileForm.get('regionId')?.valueChanges.subscribe(async selectedRegionCode => {
+      this.filterComunas(selectedRegionCode);
     });
   }
 
@@ -62,37 +65,38 @@ export class EditarPerfilPage implements OnInit {
     return null;
   };
 
-  loadLocationData() {
-    this.regiones = [
-      { id: 1, nombre: 'Valparaíso' },
-      { id: 2, nombre: 'Metropolitana' },
-      { id: 3, nombre: 'Biobío' }
-    ];
-    this.comunas = [
-      { id: 1, regionId: 1, nombre: 'Viña del Mar' },
-      { id: 2, regionId: 1, nombre: 'Valparaíso' },
-      { id: 3, regionId: 1, nombre: 'Casablanca' },
-      { id: 4, regionId: 2, nombre: 'Santiago' },
-      { id: 5, regionId: 2, nombre: 'Providencia' },
-      { id: 6, regionId: 3, nombre: 'Concepción' }
-    ];
+  // Carga las regiones y comunas desde la API
+  async loadLocationData() {
+    try {
+      const fetchedRegiones = await this.commonService.getRegions();
+      this.regiones = fetchedRegiones.map(r => ({ id: r.codigo, nombre: r.nombre }));
+
+      // Cargar todas las comunas (aunque solo se usen filtradas) si es necesario para alguna lógica,
+      // o directamente depender de `filterComunas` para cargarlas según la región seleccionada.
+      // Aquí, la estrategia será cargar las comunas solo cuando se selecciona una región.
+    } catch (error) {
+      console.error('Error al cargar datos de ubicación:', error);
+      alert('No se pudieron cargar las regiones.');
+    }
   }
 
   loadUserProfile() {
     this.authService.getProfile().subscribe({
-      next: (data) => {
+      next: async (data) => {
         const mappedData = {
           firstName: data.first_name,
           lastName: data.last_name,
           username: data.username,
           email: data.email,
           rut: data.rut,
-          regionId: data.region_id,
-          comunaId: data.comuna_id
+          regionId: data.region_id, // Usar el código de la región de la API
+          comunaId: data.comuna_id // Usar el código de la comuna de la API
         };
         this.profileForm.patchValue(mappedData);
+
         if (mappedData.regionId) {
-          this.filterComunas(mappedData.regionId);
+          // Filtra y carga las comunas correspondientes a la región del usuario desde la API
+          await this.filterComunas(mappedData.regionId);
           this.profileForm.get('comunaId')?.setValue(mappedData.comunaId);
         }
       },
@@ -104,13 +108,22 @@ export class EditarPerfilPage implements OnInit {
     });
   }
 
-  filterComunas(regionId: number) {
-    this.comunasFiltradas = this.comunas.filter(c => c.regionId === Number(regionId));
+  async filterComunas(regionCode: string) { // Cambiado a async y espera código de región
     const comunaControl = this.profileForm.get('comunaId');
     if (comunaControl) {
-      if (regionId) {
-        comunaControl.enable();
+      if (regionCode) {
+        try {
+          const fetchedComunas = await this.commonService.getComunasByRegion(regionCode);
+          this.comunasFiltradas = fetchedComunas.map(c => ({ id: c.codigo, nombre: c.nombre }));
+          comunaControl.enable();
+        } catch (error) {
+          console.error('Error al cargar comunas por región:', error);
+          this.comunasFiltradas = [];
+          comunaControl.disable();
+          alert('No se pudieron cargar las comunas para la región seleccionada.');
+        }
       } else {
+        this.comunasFiltradas = [];
         comunaControl.disable();
       }
       comunaControl.setValue(null);
@@ -149,8 +162,8 @@ export class EditarPerfilPage implements OnInit {
       username: userData.username,
       email: userData.email,
       rut: userData.rut,
-      regionId: userData.regionId,
-      comunaId: userData.comunaId,
+      regionId: userData.regionId, // Envía el código de la región
+      comunaId: userData.comunaId, // Envía el código de la comuna
     };
 
     if (userData.newPassword) {

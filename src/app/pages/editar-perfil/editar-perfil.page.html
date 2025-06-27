@@ -55,7 +55,7 @@
 
                 <ion-item>
                   <ion-label position="stacked">Región</ion-label>
-                  <ion-select formControlName="regionId" placeholder="Selecciona una región" interface="popover">
+                  <ion-select formControlName="region" interface="popover" placeholder="Selecciona una región">
                     <ion-select-option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</ion-select-option>
                   </ion-select>
                 </ion-item>
@@ -63,12 +63,12 @@
                   <ion-text *ngIf="profileForm.get('regionId')?.errors?.['required']">La región es requerida.</ion-text>
                 </div>
 
-                <ion-item>
+                  <ion-item>
                   <ion-label position="stacked">Comuna</ion-label>
-                  <ion-select formControlName="comunaId" placeholder="Selecciona una comuna" interface="popover" [disabled]="profileForm.get('comunaId')?.disabled ?? true">
-                    <ion-select-option *ngFor="let comuna of comunasFiltradas" [value]="comuna.id">{{ comuna.nombre }}</ion-select-option>
-                  </ion-select>
-                </ion-item>
+                    <ion-select formControlName="comuna" interface="popover" placeholder="Selecciona una comuna">
+                      <ion-select-option *ngFor="let comuna of comunasFiltradas" [value]="comuna.id">{{ comuna.nombre }}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
                  <div *ngIf="profileForm.get('comunaId')?.invalid && (profileForm.get('comunaId')?.dirty || profileForm.get('comunaId')?.touched)" class="ion-padding-start ion-text-danger">
                   <ion-text *ngIf="profileForm.get('comunaId')?.errors?.['required']">La comuna es requerida.</ion-text>
                 </div>

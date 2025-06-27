@@ -1,28 +1,37 @@
-// Proyecto/src/app/services/common.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs'; // Importa lastValueFrom
+import { Observable, lastValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  private apiUrl = 'YOUR_API_BASE_URL'; // **IMPORTANTE: Reemplaza con la URL base de tu API**
+  // Cambia la URL base para apuntar a tu propio backend
+  private backendApiUrl = 'http://localhost:3000/api/proxy'; // Asume que tu backend corre en el puerto 3000
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Obtiene el listado de todas las regiones de Chile a través del proxy del backend.
+   * @returns Una promesa con un array de objetos de región.
+   */
   async getRegions(): Promise<any[]> {
-    const observable = this.http.get<any[]>(`${this.apiUrl}/regions`).pipe(
+    const observable = this.http.get<any[]>(`${this.backendApiUrl}/regiones`).pipe(
       map(data => data || [])
     );
-    return await lastValueFrom(observable); // Usar lastValueFrom
+    return await lastValueFrom(observable);
   }
 
-  async getComunas(): Promise<any[]> {
-    const observable = this.http.get<any[]>(`${this.apiUrl}/comunas`).pipe(
+  /**
+   * Obtiene el listado de comunas para una región específica a través del proxy del backend.
+   * @param regionCode El código de la región (ej. '05', '13').
+   * @returns Una promesa con un array de objetos de comuna.
+   */
+  async getComunasByRegion(regionCode: string): Promise<any[]> {
+    const observable = this.http.get<any[]>(`${this.backendApiUrl}/regiones/${regionCode}/comunas`).pipe(
       map(data => data || [])
     );
-    return await lastValueFrom(observable); // Usar lastValueFrom
+    return await lastValueFrom(observable);
   }
 }
